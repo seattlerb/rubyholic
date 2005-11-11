@@ -9,23 +9,16 @@ class TestGroupsController < FunctionalTestCase
     assert_success
 
     assert_links_to "/groups/show/101"
-  end
 
-  def assert_calendar(cal, sub)
-    cal.each do |date, text|
-      if sub.has_key? date then
-        assert_tag(:tag => "li",
-                   :content => "#{date}: #{text}",
-                   :child => { :tag => "ul" })
-        sub[date].each do |description|
-          assert_tag :tag => "li", :content => description
-        end
-      else
-        assert_tag :tag => "li", :content => "#{date}: #{text}"
-      end
-    end
+    assert_tag :tag => 'div', :attributes => { :class => 'blurb' }
+    assert_tag :tag => 'div', :attributes => { :class => 'list' }
+    assert_tag :tag => 'div', :attributes => { :class => 'todo' }
 
-    assert_match /#{cal.keys.sort.join('.+')}/m, @response.body
+    x = "/groups/create"
+    assert_tag :tag => 'form', :attributes => { :action => x }
+    assert_field x, :text, 'group', 'name'
+    assert_field x, :text, 'group', 'city'
+    assert_submit(x, "Create")
   end
 
   def test_show
@@ -63,6 +56,22 @@ class TestGroupsController < FunctionalTestCase
     }
 
     assert_calendar calendar, subjects
+  end
+
+  def test_create
+    name = "new group"
+    city = "new city"
+
+    orig_groups = Group.find(:all)
+    get :create, :group => { :name => name, :city => city }
+
+    new_groups = Group.find(:all) - orig_groups
+    assert_equal 1, new_groups.size
+    new_group = new_groups.first
+
+    assert_redirect :action => "edit", :id => new_group.id
+    assert_equal name, new_group.name
+    assert_equal city, new_group.city
   end
 
   def test_add_url
@@ -147,43 +156,12 @@ class TestGroupsController < FunctionalTestCase
     assert_equal description, new_subject.description
   end
 
-  def util_del target, model, params={}
-    singular = model.name.downcase
-    plural = Inflector.pluralize(singular)
-
-    primary_key = "#{singular}_id".intern
-    msg = plural.intern
-    action = "del_#{singular}"
-
-    orig = target.send(msg)[0..-1]
-
-    item_to_delete = orig.last
-
-    params = params.merge(:id => target.id, primary_key => item_to_delete.id)
-
-    post action, params
-    assert_success
-
-    target.reload
-
-    items = orig - target.send(msg)
-
-    assert 1, items.size
-    assert_equal item_to_delete, items.first
-  end
-
   def test_del_event
     util_del @seattle, Event # , :events, :del_event
   end
 
   def test_del_subject
     util_del @monthly_event, Subject # :subjects, :del_subject
-  end
-
-  def assert_section(name, *tests)
-    tests.each do |attribs|
-      assert_tag :tag => 'div', :attributes => { :id => name }, :descendant => attribs
-    end
   end
 
   def test_edit
@@ -195,6 +173,7 @@ class TestGroupsController < FunctionalTestCase
     assert_tag :tag => 'form', :attributes => { :action => x }
     assert_field x, :text, 'group', 'name'
     assert_field x, :text, 'group', 'city'
+    assert_submit(x, "Update")
 
     # urls
     assert_tag :tag => "h2", :content => "URLs"
@@ -274,6 +253,29 @@ class TestGroupsController < FunctionalTestCase
                      { :type => 'image',  :src => '/images/delete.png' })
   end
 
+  def assert_section(name, *tests)
+    tests.each do |attribs|
+      assert_tag :tag => 'div', :attributes => { :id => name }, :descendant => attribs
+    end
+  end
+
+  def assert_calendar(cal, sub)
+    cal.each do |date, text|
+      if sub.has_key? date then
+        assert_tag(:tag => "li",
+                   :content => "#{date}: #{text}",
+                   :child => { :tag => "ul" })
+        sub[date].each do |description|
+          assert_tag :tag => "li", :content => description
+        end
+      else
+        assert_tag :tag => "li", :content => "#{date}: #{text}"
+      end
+    end
+
+    assert_match /#{cal.keys.sort.join('.+')}/m, @response.body
+  end
+
   def assert_ajax_form(div, url, *tests)
     assert_tag :tag => 'form',             :attributes => { :action => url, :onsubmit => /'#{div}', '#{url}'/ }
     assert_tag_in_form url, :tag => 'input', :attributes => { :type => 'hidden', :name => 'id', :value => @seattle.id }
@@ -283,6 +285,31 @@ class TestGroupsController < FunctionalTestCase
     end
 
     yield(url) if block_given?
+  end
+
+  def util_del target, model, params={}
+    singular = model.name.downcase
+    plural = Inflector.pluralize(singular)
+
+    primary_key = "#{singular}_id".intern
+    msg = plural.intern
+    action = "del_#{singular}"
+
+    orig = target.send(msg)[0..-1]
+
+    item_to_delete = orig.last
+
+    params = params.merge(:id => target.id, primary_key => item_to_delete.id)
+
+    post action, params
+    assert_success
+
+    target.reload
+
+    items = orig - target.send(msg)
+
+    assert 1, items.size
+    assert_equal item_to_delete, items.first
   end
 
 end

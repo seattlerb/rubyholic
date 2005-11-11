@@ -1,4 +1,52 @@
+<h1>Are you a Rubyholic?</h1>
 
-<% @groups.each do |group| %>
-  <%= link_to group.name, :model => group %>
-<% end %>
+<div class="blurb">
+  <p>
+    Rubyholic.com was written to help rubyists organize and make it
+    easier for organizers and potential members find each other.
+  </p>
+  <p>
+    This rails app was written entirely Test-Driven. The author of
+    this app <em><u>never</u></em> loaded any of it in a browser before
+    launching the application.
+  </p>
+</div>
+
+<h2>Find One Near You!</h2>
+<div class="list">
+  <ul>
+    <% @groups.each do |group| %>
+      <li><%= link_to group.name, :model => group %></li>
+    <% end %>
+  </ul>
+
+  <p>Register a new group:</p>
+
+  <%= start_form_tag :action => 'create' %>
+    <%= error_messages_for 'group' %>
+    <table>
+      <%= form_field 'text', 'group', 'name', 'Name' %>
+      <%= form_field 'text', 'group', 'city', 'City' %>
+    </table>
+    <%= submit_tag 'Create' %>
+  <%= end_form_tag %>
+
+</div>
+
+<h2>Planned:</h2>
+<div class="todo">
+  <p>
+    <A HREF="ryand-rubyholic@zenspider.com">Please contribute!</A>
+    We'd love help, especially with web design, RSS, and feature
+    suggestions.
+  </p>
+
+  <ul>
+    <li>login/security</li>
+    <li>prettier CSS/HTML</li>
+    <li>RSS feeds</li>
+    <li>calendar views</li>
+    <li>All-group upcoming view on homepage</li>
+  </ul>
+</div>
+

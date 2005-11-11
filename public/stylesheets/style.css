@@ -1,0 +1,28 @@
+html {
+    font-family: Optima, Verdana, sans-serif;
+    margin: 1em;
+    background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: Palatino, Times, serif;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+}
+
+em u { color: black; }
+
+.blurb {
+    background-color: #EEF;
+    color: red;
+    float: right;
+    width:150px;
+    padding: .5em;
+    margin: .5em;
+    font-size: 1.2em;
+}
+
+.list li { font-family: Monaco, Courier, monospace; }
+

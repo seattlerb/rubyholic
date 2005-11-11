@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
 
   def index
+    @group = Group.new
     @groups = Group.find :all
   end
 
@@ -10,6 +11,16 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find params[:id]
+  end
+
+  def create
+    @group = Group.new(params[:group])
+    if @group.save
+      flash[:notice] = 'Group was successfully created.'
+      redirect_to :action => 'edit', :id => @group.id
+    else
+      render :action => 'index'
+    end
   end
 
   def add_url
