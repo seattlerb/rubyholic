@@ -1,0 +1,31 @@
+<%= start_form_tag :action => 'update', :id => @group %>
+
+  <%= error_messages_for 'group' %>
+
+  <h2>Basic Information</h2>
+
+  <table>
+    <%= form_field 'text', 'group', 'name', 'Name' %>
+    <%= form_field 'text', 'group', 'city', 'City' %>
+  </table>
+
+  <%= submit_tag 'Edit' %>
+
+  <div id="urls">
+    <%= render :partial => 'urls' %>
+  </div>
+  
+  <div id="locations">
+    <%= render :partial => 'locations' %>
+  </div>
+  
+  <div id="events">
+    <%= render :partial => 'events' %>
+  </div>
+
+  <div id="contacts">
+    <%= render :partial => 'contacts' %>
+  </div>
+  
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>

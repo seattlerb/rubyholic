@@ -1,0 +1,10 @@
+ryan_contact:
+  id: 101
+  group_id: 101
+  name: Ryan Davis
+  email: ryand-ruby@zenspider.com
+eric_contact:
+  id: 102
+  group_id: 101
+  name: Eric Hodel
+  email: drbrain@segment7.net

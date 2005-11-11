@@ -1,0 +1,33 @@
+
+<h1><%= @group.name %></h1>
+<h2><%= @group.city %></h2>
+
+<% @group.urls.each do |url| %>
+  <%= url.label %>: <%= link_to url.url, url.url %>
+<% end %>
+
+<h3>Locations</h3>
+
+<ul class="location">
+<% @group.locations.each do |location| %>
+  <li><%= location.name %></li>
+  
+<% end %>
+</ul>
+
+<h3>Schedule</h3>
+
+<ul>
+<% @group.events.each do |event| %>
+  <li>
+    <%= event.date %>: <%= event.location.name %>: <%= event.summary %>
+    <% unless event.subjects.empty? then %>
+      <ul>
+	<% event.subjects.each do |subject| %>
+	  <%= subject.description %>
+	<% end %>
+      </ul>
+    <% end %>
+  </li>
+<% end %>
+</ul>

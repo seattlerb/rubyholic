@@ -1,0 +1,28 @@
+<h2>URLs</h2>
+
+<table>
+  <tr>
+    <td colspan=2>
+    <%= form_remote_tag(:update => "urls", :url => { :action => :add_url } ) %> 
+      <%= hidden_field_tag 'id', @group.id %>
+      <%= text_field_tag :label, '', { :size => 10 } %>
+      <%= text_field_tag :url, '', { :size => 50 } %>
+      <input type="image" src="/images/add.png">
+    <%= end_form_tag %>
+    </td>
+  </tr>
+  <% @group.urls.each do |url| %>
+    <tr>
+      <%= form_remote_tag :update => "urls", :url => { :action => :del_url } %>
+      <td>
+	<%= hidden_field_tag :id, @group.id %>
+	<%= hidden_field_tag :url_id, url.id %>
+	<%= url.label %>: <%= url.url %>
+      </td>
+      <td>
+	<input type="image" src="/images/delete.png">
+      </td>
+      <%= end_form_tag %>
+    </tr>
+  <% end %>
+</table>

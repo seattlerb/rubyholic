@@ -1,0 +1,48 @@
+Index: vendor/rails/activerecord/lib/active_record/fixtures.rb
+===================================================================
+--- vendor/rails/activerecord/lib/active_record/fixtures.rb     (revision 2479)
++++ vendor/rails/activerecord/lib/active_record/fixtures.rb     (working copy)
+@@ -219,6 +219,25 @@
+   cattr_accessor :all_loaded_fixtures
+   self.all_loaded_fixtures = {}
+ 
++  def self.nuke_fixtures(fixtures_directory, *table_names)
++    connection = block_given? ? yield : ActiveRecord::Base.connection
++    old_logger_level = ActiveRecord::Base.logger.level
++
++    begin
++      ActiveRecord::Base.logger.level = Logger::ERROR
++
++      connection.transaction do
++        table_names.reverse.each do |table_name|
++          connection.delete "DELETE FROM #{table_name}", 'Fixture Delete'
++        end
++      end
++      
++      reset_sequences(connection, table_names) if connection.is_a?(ActiveRecord::ConnectionAdapters::PostgreSQLAdapter)
++    ensure
++      ActiveRecord::Base.logger.level = old_logger_level
++    end
++  end
++
+   def self.create_fixtures(fixtures_directory, *table_names)
+     connection = block_given? ? yield : ActiveRecord::Base.connection
+     old_logger_level = ActiveRecord::Base.logger.level
+@@ -491,6 +510,7 @@
+           ActiveRecord::Base.connection.rollback_db_transaction
+           ActiveRecord::Base.unlock_mutex
+         end
++        nuke_fixtures
+       end
+ 
+       alias_method :teardown, :teardown_with_fixtures
+@@ -517,6 +537,10 @@
+       end
+ 
+       private
++        def nuke_fixtures
++          Fixtures.nuke_fixtures(fixture_path, *fixture_table_names) 
++        end
++
+         def load_fixtures
+           @loaded_fixtures = {}

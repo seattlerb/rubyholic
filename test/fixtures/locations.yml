@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+robotcoop_location:
+  id: 101
+  group_id: 101
+  name: Robot Co-op
+amazon_locotion:
+  id: 102
+  group_id: 101
+  name: Amazon US1

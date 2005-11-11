@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+evan_subject:
+  id: 101
+  event_id: 102
+  description: Evan Webb on Sydney
+eric_subject:
+  id: 102
+  event_id: 102
+  description: Eric Hodel on TDD for Rails

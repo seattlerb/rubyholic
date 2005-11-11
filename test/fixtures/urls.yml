@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+seattle_web_url:
+  id: 101
+  group_id: 101
+  label: web
+  url: http://www.zenspider.com/seattle.rb
+seattle_mail_url:
+  id: 102
+  group_id: 101
+  label: mail
+  url: mailto:ruby@zenspider.com
+seattle_irc_url:
+  id: 103
+  group_id: 101
+  label: irc
+  url: irc://irc.freenode.net/#seattle.rb
