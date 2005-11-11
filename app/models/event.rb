@@ -6,4 +6,11 @@ class Event < ActiveRecord::Base
   def date
     self.start.strftime('%F %l:%M%p').sub(/\s+/, ' ').downcase[0..-2]
   end
+
+  def new_subject description
+    subject = Subject.new :description => description
+    self.subjects << subject
+    self.save
+    subject
+  end
 end

@@ -5,12 +5,29 @@ class Group < ActiveRecord::Base
   has_many :events, :order => "start ASC"
   has_many :urls
 
-  def new_contact(name, email)
-    c = Contact.new(:name => name, :email => email)
-    self.contacts << c
+  def _new_thing(model, params)
+    singular = model.name.downcase
+    plural = Inflector.pluralize(singular)
+
+    thing = model.new params
+    self.send(plural) << thing
     self.save
-    c
+    thing
   end
 
-  # TODO: the rest of the creators
+  def new_contact(name, email)
+    _new_thing Contact, :name => name, :email => email
+  end
+
+  def new_url(label, url)
+    _new_thing Url, :label => label, :url => url
+  end
+
+  def new_location(location)
+    _new_thing Location, :name => location
+  end
+
+  def new_event(what, wwhen, where)
+    _new_thing Event, :summary => what, :start => wwhen, :location_id => where.id
+  end
 end

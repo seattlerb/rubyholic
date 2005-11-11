@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class TestGroup < Test::Unit::TestCase
-  fixtures :groups
+  fixtures :groups, :locations
 
   def setup
     @group = Group.find(101)
@@ -12,9 +12,19 @@ class TestGroup < Test::Unit::TestCase
   end
 
   def test_new_contact
-    contacts = @group.contacts[0..-1]
-    c = @group.new_contact 'a name', 'an email'
-    new_contacts = @group.contacts - contacts
-    assert_equal [c], new_contacts
+    util_new @group, :contact, 'a name', 'an email'
   end
+
+  def test_add_url
+    util_new @group, :url, 'www', 'http://www.example.com/'
+  end
+
+  def test_add_location
+    util_new @group, :location, "a location"
+  end
+
+  def test_add_event
+    util_new @group, :event, "Monthly Meeting", "2005-11-29 19:00", @amazon_locotion
+  end
+
 end

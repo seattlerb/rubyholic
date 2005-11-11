@@ -14,4 +14,9 @@ class TestEvent < Test::Unit::TestCase
   def test_date
     assert_equal '2005-11-01 7:00p', @event.date
   end
+
+  def test_add_subject
+    util_new @event, :subject, 'a subject'
+  end
+
 end
