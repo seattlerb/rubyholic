@@ -191,7 +191,7 @@ class TestGroupsController < FunctionalTestCase
     assert_success
 
     # flat data
-    x = '/groups/update'
+    x = "/groups/update/#{@seattle.id}"
     assert_tag :tag => 'form', :attributes => { :action => x }
     assert_field x, :text, 'group', 'name'
     assert_field x, :text, 'group', 'city'
@@ -275,7 +275,7 @@ class TestGroupsController < FunctionalTestCase
   end
 
   def assert_ajax_form(div, url, *tests)
-    assert_tag :tag => 'form',             :attributes => { :action => url, :onsubmit => "'#{div}', '#{url}'" }
+    assert_tag :tag => 'form',             :attributes => { :action => url, :onsubmit => /'#{div}', '#{url}'/ }
     assert_tag_in_form url, :tag => 'input', :attributes => { :type => 'hidden', :name => 'id', :value => @seattle.id }
 
     tests.each do |params|

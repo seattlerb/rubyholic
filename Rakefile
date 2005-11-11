@@ -9,24 +9,40 @@ TEST_CHANGES_SINCE = Time.now - 600
 desc "Run all the tests on a fresh test database"
 task :default => [ :test_unit, :test_functional ]
 
-task :init => [:environment, :rails] do
-  abcs = ActiveRecord::Base.configurations
-
-  abcs.each do |env,setup|
-    system "dropdb #{setup["database"]}"
-    system "sleep 1"
-    system "createdb #{setup["database"]}"
-    system "sleep 1"
-  end
-end
+task :init => [:rails, :dbs, :rude]
 
 task :rails do
   Dir.chdir("vendor") do
     unless test ?d, 'rails' then
-      system 'svn co http://dev.rubyonrails.org/svn/rails/trunk rails'
-      system 'patch -p1 < real_unit_testing.diff'
+      sh 'svn co http://dev.rubyonrails.org/svn/rails/trunk rails'
+      # sh 'patch -p1 < real_unit_testing.diff'
     end
   end
+end
+
+task :dbs => :environment do
+  abcs = ActiveRecord::Base.configurations
+
+  abcs.each do |env,setup|
+    system "dropdb #{setup['database']}"
+  end
+
+  sleep 1
+
+  abcs.each do |env,setup|
+    sh "createdb #{setup['database']}"
+    sleep 1
+  end
+  sh 'sync'
+end
+
+task :rude => [ :import, :clone_structure_to_test ]
+
+task :import do
+  sh 'psql -f sql/rubyholic.sql rubyholic_development'
+  sleep 1
+  sh 'sync'
+  sh './sql/cascade.rb rubyholic_development | psql rubyholic_development'
 end
 
 desc 'Require application environment.'
@@ -65,12 +81,6 @@ task :test_recent => [ :clone_structure_to_test ]
 
 desc "STUPID!"
 task :test => [ :clone_structure_to_test, :test_unit, :test_functional ]
-
-task :rude => [ :terse, :clone_structure_to_test ]
-
-task :terse do
-  system 'psql -f sql/rubyholic.sql rubyholic_development'
-end
 
 desc "Run the unit tests in test/unit"
 Rake::TestTask.new("test_unit") { |t|

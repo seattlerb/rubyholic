@@ -10,11 +10,12 @@ end
 
 tables.each do |table|
 
-  `echo "\\d #{table}" | psql rubyholic_test`.each_line do |line|
+  `echo "\\d #{table}" | psql #{db_name}`.each_line do |line|
 
     next unless line =~ /(\S+) FOREIGN KEY \((\S+)\) REFERENCES (\S+)/
     
     index, column, ref = $1, $2, $3
+
 
     puts %(ALTER TABLE #{table} DROP CONSTRAINT #{index};)
     puts %(ALTER TABLE #{table} ADD FOREIGN KEY (#{column}) REFERENCES #{ref} ON DELETE CASCADE;)
