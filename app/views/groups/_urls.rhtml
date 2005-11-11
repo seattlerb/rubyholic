@@ -17,7 +17,7 @@
       <td>
 	<%= hidden_field_tag :id, @group.id %>
 	<%= hidden_field_tag :url_id, url.id %>
-	<%= url.label %>: <%= url.url %>
+	<span class="url_label"><%= url.label %></span>: <%= url.url %>
       </td>
       <td>
 	<input type="image" src="/images/delete.png">

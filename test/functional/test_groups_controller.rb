@@ -28,20 +28,22 @@ class TestGroupsController < FunctionalTestCase
     assert_tag :tag => "h1", :content => "Seattle Ruby Brigade!"
     assert_tag :tag => "h2", :content => "Seattle, WA"
 
+    assert_tag :tag => 'div', :attributes => { :id => 'urls' }
     assert_links_to @seattle_web_url.url,  @seattle_web_url.url
     assert_links_to @seattle_irc_url.url,  @seattle_irc_url.url
     assert_links_to @seattle_mail_url.url, @seattle_mail_url.url
 
     assert_tag :tag => "h3", :content => "Locations"
 
-    assert_tag :tag => 'ul', :attributes => { :class => 'location' },
-      :child => { :tag => 'li', :content => "Amazon US1" }
+    assert_tag :tag => 'div', :attributes => { :id => 'locations' }
 
     # FIX: this is fucking horrible, who thinks this way?!?!
-    assert_tag :tag => 'li', :content => "Robot Co-op",
-      :after => { :tag => 'li', :content => "Amazon US1" }
+    assert_tag :tag => 'ul', :child => { :tag => 'li', :content => "Amazon US1" }
+    assert_tag :tag => 'li', :content => "Robot Co-op", :after => { :tag => 'li', :content => "Amazon US1" }
 
     assert_tag :tag => "h3", :content => "Schedule"
+
+    assert_tag :tag => 'div', :attributes => { :id => 'events' }
 
     calendar = {
       '2005-11-01 7:00p' => 'Robot Co-op: Weekly Meeting blah blah',
