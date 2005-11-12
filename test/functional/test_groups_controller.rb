@@ -77,6 +77,23 @@ class TestGroupsController < FunctionalTestCase
     assert_equal city, new_group.city
   end
 
+  def test_update
+    name = "new group"
+    city = "new city"
+
+    orig_groups = Group.find(:all)
+    get :update, :id => @seattle.id, :group => { :name => name, :city => city }
+
+    new_groups = Group.find(:all) - orig_groups
+    assert_equal 0, new_groups.size
+
+    group = Group.find @seattle.id
+
+    assert_redirect :action => "edit", :id => group.id
+    assert_equal name, group.name
+    assert_equal city, group.city
+  end
+
   def test_add_url
     url = "http://www.example.com/blah/#{Time.now.to_i}"
     orig_urls = @seattle.urls[0..-1]

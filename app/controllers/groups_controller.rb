@@ -13,6 +13,16 @@ class GroupsController < ApplicationController
     @group = Group.find params[:id]
   end
 
+  def update
+    @group = Group.find params[:id]
+    if @group.update_attributes(params[:group])
+      flash[:notice] = 'Group was successfully updated.'
+      redirect_to :action => 'edit', :id => @group
+    else
+      render :action => 'edit'
+    end
+  end
+
   def create
     @group = Group.new(params[:group])
     if @group.save
