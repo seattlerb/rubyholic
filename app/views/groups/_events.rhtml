@@ -29,7 +29,7 @@
 	  </tr>
 	  <% end %>
 	  <tr>
-	    <td>
+	    <td colspan=2>
 	      <%= form_remote_tag(:update => "events", :url => { :action => :add_subject } ) %> 
 		<input type="image" src="/images/add.png">
 	        <%= hidden_field_tag 'id', @group.id %>
