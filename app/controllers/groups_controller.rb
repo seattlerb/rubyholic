@@ -48,6 +48,21 @@ class GroupsController < ApplicationController
     render :partial => 'urls'
   end
 
+  def add_contact
+    @group = Group.find params[:id]
+    if @group then
+      @group.new_contact params[:name], params[:email]
+      @group.reload
+    end
+    render :partial => 'contacts'
+  end
+
+  def del_contact
+    Contact.destroy params[:contact_id]
+    @group = Group.find params[:id]
+    render :partial => 'contacts'
+  end
+
   def add_location
     @group = Group.find params[:id]
     Location.create :name => params[:name], :group_id => @group.id

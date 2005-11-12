@@ -94,6 +94,29 @@ class TestGroupsController < FunctionalTestCase
     assert_equal city, group.city
   end
 
+  def test_add_contact
+    name = "a name"
+    mail = "name@example.com"
+    orig_contacts = @seattle.contacts[0..-1]
+
+    post :add_contact, :id => @seattle.id, :name => name, :email => mail
+    assert_success
+
+    @seattle.reload
+    new_contacts = @seattle.contacts - orig_contacts
+
+    assert 1, new_contacts.size
+    new_contact = new_contacts.first
+    assert_not_nil new_contact
+    assert_kind_of Contact, new_contact
+    assert_equal name, new_contact.name
+    assert_equal mail, new_contact.email
+  end
+
+  def test_del_contact
+    util_del @seattle, Contact
+  end
+
   def test_add_url
     url = "http://www.example.com/blah/#{Time.now.to_i}"
     orig_urls = @seattle.urls[0..-1]
