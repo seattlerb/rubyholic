@@ -3,13 +3,14 @@
 <table>
   <% @group.events.each do |event| %>
     <tr>
-      <%= form_remote_tag :update => "events", :url => { :action => :del_event } %>
       <td>
+	<%= form_remote_tag :update => "events", :url => { :action => :del_event } %>
 	<input type="image" src="/images/delete.png">
-      </td>
-      <td>
 	<%= hidden_field_tag :id, @group.id %>
 	<%= hidden_field_tag :event_id, event.id %>
+	<%= end_form_tag %>
+      </td>
+      <td>
 	<%= event.location.name %> at <%= event.start %>: <%= event.summary %>
 	<table style="margin-left: 2em">
 	  <% event.subjects.each do |subject| %>
@@ -39,7 +40,6 @@
 	  </tr>
 	</table>
       </td>
-      <%= end_form_tag %>
     </tr>
   <% end %>
   <tr>
