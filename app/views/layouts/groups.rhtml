@@ -1,14 +1,20 @@
 <html>
 <head>
-  <title>Rubyholic.com: Are you a rubyholic?</title> <!-- TODO: fix the title -->
+  <title>Rubyholic.com</title> <!-- TODO: fix the title -->
   <%= stylesheet_link_tag 'style' %>
   <%= javascript_include_tag 'prototype' %>
 </head>
 <body>
 
+<% if params[:action] != "index" %>
+  <%= header %>
+<% end %>
+
 <p style="color: green"><%= flash[:notice] %></p>
 
 <%= @content_for_layout %>
+
+<%= footer %>
 
 </body>
 </html>

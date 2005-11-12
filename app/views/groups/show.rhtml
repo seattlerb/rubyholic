@@ -4,7 +4,10 @@
 <div id="urls">
   <ul>
     <% @group.urls.each do |url| %>
-      <li><%= url.label %>: <%= link_to url.url, url.url %></li>
+      <li>
+        <span class="urllabel"><%= url.label %></span>:
+        <%= link_to url.url, url.url %>
+      </li>
     <% end %>
   </ul>
 </div>
@@ -37,3 +40,5 @@
       <% end %>
   </ul>
 </div>
+
+<%= link_to "Edit", :action => :edit, :model => @group %>
