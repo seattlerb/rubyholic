@@ -9,6 +9,7 @@ class TestGroupsController < FunctionalTestCase
     assert_success
 
     assert_links_to "/groups/show/101"
+    assert_links_to "mailto:ryand-rubyholic@zenspider.com"
 
     assert_tag :tag => 'div', :attributes => { :class => 'blurb' }
     assert_tag :tag => 'div', :attributes => { :class => 'list' }
@@ -181,6 +182,7 @@ class TestGroupsController < FunctionalTestCase
     assert_tag :tag => "h2", :content => "URLs"
 
     assert_ajax_form('urls', '/groups/add_url',
+                     { :type => 'text', :name => 'label', :value => /^$/ },
                      { :type => 'text', :name => 'url', :value => /^$/ },
                      { :type => 'image',  :src => '/images/add.png' })
 
@@ -213,7 +215,7 @@ class TestGroupsController < FunctionalTestCase
     assert_tag :tag => "h2", :content => "Locations"
 
     assert_ajax_form('locations', '/groups/add_location',
-                     { :type => 'text', :name => 'location', :value => /^$/ },
+                     { :type => 'text', :name => 'name', :value => /^$/ },
                      { :type => 'image',  :src => '/images/add.png' })
 
     assert_section('locations',

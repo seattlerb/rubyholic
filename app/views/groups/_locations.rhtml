@@ -5,7 +5,7 @@
     <td colspan=2>
     <%= form_remote_tag(:update => "locations", :url => { :action => :add_location } ) %> 
       <%= hidden_field_tag 'id', @group.id %>
-      <%= text_field_tag :location, '', { :size => 50 } %>
+      <%= text_field_tag :name, '', { :size => 50 } %>
       <input type="image" src="/images/add.png">
     <%= end_form_tag %>
     </td>
