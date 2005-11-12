@@ -11,16 +11,16 @@
 	<%= end_form_tag %>
       </td>
       <td>
-	<%= event.location.name %> at <%= event.start %>: <%= event.summary %>
+	<%= event.location.name %> at <%= event.start %>: <%= event.summary %><br>
 	<table style="margin-left: 2em">
 	  <% event.subjects.each do |subject| %>
 	  <tr>
 	    <td>
 	      <%= form_remote_tag :update => "events", :url => { :action => :del_subject } %>
+	      <input type="image" src="/images/delete.png">
 	      <%= hidden_field_tag :id, @group.id %>
 	      <%= hidden_field_tag :event_id, event.id %>
 	      <%= hidden_field_tag :subject_id, subject.id %>
-	      <input type="image" src="/images/delete.png">
 	      <%= end_form_tag %>
 	    </td>
 	    <td>
@@ -31,10 +31,10 @@
 	  <tr>
 	    <td>
 	      <%= form_remote_tag(:update => "events", :url => { :action => :add_subject } ) %> 
+		<input type="image" src="/images/add.png">
 	        <%= hidden_field_tag 'id', @group.id %>
 		<%= hidden_field_tag 'event_id', event.id %>
 		<%= text_field_tag :description, '', { :size => 50, :maxlength => 255 } %>
-		<input type="image" src="/images/add.png">
 	      <%= end_form_tag %>
 	    </td>
 	  </tr>
@@ -46,12 +46,12 @@
     <td colspan=2>
     <%= form_remote_tag(:update => "events", :url => { :action => :add_event } ) %> 
       <%= hidden_field_tag 'id', @group.id %>
+      <input type="image" src="/images/add.png">
       <select name="location_id">
         <%= options_from_collection_for_select(@group.locations, :id, :name) %>
       </select>
       <%= text_field_tag :start, 'YYYY-MM-DD hh:mm' %>
       <%= text_field_tag :summary, '', { :size => 50, :maxlength => 255 } %>
-      <input type="image" src="/images/add.png">
     <%= end_form_tag %>
     </td>
   </tr>
