@@ -1,28 +1,22 @@
 <h2>Contacts</h2>
 
-<table>
-  <tr>
-    <td colspan=2>
-    <%= form_remote_tag(:update => "contacts", :url => { :action => :add_contact } ) %> 
-      <input type="image" src="/images/add.png">
-      <%= hidden_field_tag 'id', @group.id %>
-      <%= text_field_tag :name, '', { :size => 50 } %>
-      <%= text_field_tag :email, '', { :size => 50 } %>
-    <%= end_form_tag %>
-    </td>
-  </tr>
+<ul>
   <% @group.contacts.each do |contact| %>
-    <tr>
+    <li>
       <%= form_remote_tag :update => "contacts", :url => { :action => :del_contact } %>
-      <td>
-	<input type="image" src="/images/delete.png">
-      </td>
-      <td>
+        <input type="image" src="/images/delete.png">
 	<%= hidden_field_tag :id, @group.id %>
 	<%= hidden_field_tag :contact_id, contact.id %>
 	<%= contact.name %>: <%= contact.email %>
-      </td>
       <%= end_form_tag %>
-    </tr>
+    </li>
   <% end %>
-</table>
+  <li>
+    <%= form_remote_tag(:update => "contacts", :url => { :action => :add_contact } ) %> 
+      <input type="image" src="/images/add.png">
+      <%= hidden_field_tag 'id', @group.id %>
+      <%= text_field_tag :name, '', { :size => 25 } %>
+      <%= text_field_tag :email, '', { :size => 25 } %>
+    <%= end_form_tag %>
+  </li>
+</ul>

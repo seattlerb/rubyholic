@@ -1,49 +1,39 @@
 <h2>Events</h2>
 
-<table>
+<ul>
   <% @group.events.each do |event| %>
-    <tr>
-      <td>
-	<%= form_remote_tag :update => "events", :url => { :action => :del_event } %>
-	<input type="image" src="/images/delete.png">
-	<%= hidden_field_tag :id, @group.id %>
-	<%= hidden_field_tag :event_id, event.id %>
-	<%= end_form_tag %>
-      </td>
-      <td>
-	<%= event.location.name %> at <%= event.start %>: <%= event.summary %><br>
-	<table style="margin-left: 2em">
-	  <% event.subjects.each do |subject| %>
-	  <tr>
-	    <td>
-	      <%= form_remote_tag :update => "events", :url => { :action => :del_subject } %>
-	      <input type="image" src="/images/delete.png">
-	      <%= hidden_field_tag :id, @group.id %>
-	      <%= hidden_field_tag :event_id, event.id %>
-	      <%= hidden_field_tag :subject_id, subject.id %>
-	      <%= end_form_tag %>
-	    </td>
-	    <td>
-	      <%= subject.description %>
-	    </td>
-	  </tr>
-	  <% end %>
-	  <tr>
-	    <td colspan=2>
-	      <%= form_remote_tag(:update => "events", :url => { :action => :add_subject } ) %> 
-		<input type="image" src="/images/add.png">
-	        <%= hidden_field_tag 'id', @group.id %>
-		<%= hidden_field_tag 'event_id', event.id %>
-		<%= text_field_tag :description, '', { :size => 50, :maxlength => 255 } %>
-	      <%= end_form_tag %>
-	    </td>
-	  </tr>
-	</table>
-      </td>
-    </tr>
+    <li>
+        <%= form_remote_tag :update => "events", :url => { :action => :del_event } %>
+          <input type="image" src="/images/delete.png">
+          <%= hidden_field_tag :id, @group.id %>
+          <%= hidden_field_tag :event_id, event.id %>
+          <%= event.location.name %> at <%= event.start %>: <%= event.summary %>
+        <%= end_form_tag %>
+
+        <ul>
+          <% event.subjects.each do |subject| %>
+            <li>
+              <%= form_remote_tag :update => "events", :url => { :action => :del_subject } %>
+                <input type="image" src="/images/delete.png">
+		<%= hidden_field_tag :id, @group.id %>
+		<%= hidden_field_tag :event_id, event.id %>
+		<%= hidden_field_tag :subject_id, subject.id %>
+		<%= subject.description %>
+              <%= end_form_tag %>
+            </li>
+          <% end %>
+          <li>
+              <%= form_remote_tag(:update => "events", :url => { :action => :add_subject } ) %> 
+                <input type="image" src="/images/add.png">
+                <%= hidden_field_tag 'id', @group.id %>
+                <%= hidden_field_tag 'event_id', event.id %>
+                <%= text_field_tag :description, '', { :size => 50, :maxlength => 255 } %>
+              <%= end_form_tag %>
+          </li>
+        </ul>
+    </li>
   <% end %>
-  <tr>
-    <td colspan=2>
+  <li>
     <%= form_remote_tag(:update => "events", :url => { :action => :add_event } ) %> 
       <%= hidden_field_tag 'id', @group.id %>
       <input type="image" src="/images/add.png">
@@ -53,6 +43,5 @@
       <%= text_field_tag :start, 'YYYY-MM-DD hh:mm' %>
       <%= text_field_tag :summary, '', { :size => 50, :maxlength => 255 } %>
     <%= end_form_tag %>
-    </td>
-  </tr>
-</table>
+  </li>
+</ul>

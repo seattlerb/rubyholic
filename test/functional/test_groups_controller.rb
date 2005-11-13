@@ -207,6 +207,17 @@ class TestGroupsController < FunctionalTestCase
     util_del @monthly_event, Subject # :subjects, :del_subject
   end
 
+  def xtest_edit_coverage
+    get :edit, :id => @seattle.id
+    html = @response.body
+
+    list = html.scan(/action=\"([^\"]+)\"/).flatten.map { |s| s.split(/\//).last }
+
+    assert_equal [], list
+
+#    assert_match /fuck/, html
+  end
+
   def test_edit
     get :edit, :id => @seattle.id
     assert_success
@@ -227,9 +238,9 @@ class TestGroupsController < FunctionalTestCase
                      { :type => 'image',  :src => '/images/add.png' })
 
     assert_section('urls', 
-                   { :tag => 'td', :content => @seattle_web_url.url },
-                   { :tag => 'td', :content => @seattle_mail_url.url },
-                   { :tag => 'td', :content => @seattle_irc_url.url })
+                   { :tag => 'li', :content => @seattle_web_url.url },
+                   { :tag => 'li', :content => @seattle_mail_url.url },
+                   { :tag => 'li', :content => @seattle_irc_url.url })
 
     assert_ajax_form('urls', '/groups/del_url',
                      { :type => 'hidden', :name => 'url_id', :value => @seattle_web_url.id },
@@ -244,8 +255,8 @@ class TestGroupsController < FunctionalTestCase
                      { :type => 'image',  :src => '/images/add.png' })
 
     assert_section('contacts', 
-                   { :tag => 'td', :content => @ryan_contact.email },
-                   { :tag => 'td', :content => @eric_contact.email })
+                   { :tag => 'li', :content => @ryan_contact.email },
+                   { :tag => 'li', :content => @eric_contact.email })
 
     assert_ajax_form('contacts', '/groups/del_contact',
                      { :type => 'hidden', :name => 'contact_id', :value => @eric_contact.id },
@@ -259,8 +270,8 @@ class TestGroupsController < FunctionalTestCase
                      { :type => 'image',  :src => '/images/add.png' })
 
     assert_section('locations',
-                   { :tag => 'td', :content => @amazon_locotion.name },
-                   { :tag => 'td', :content => @robotcoop_location.name })
+                   { :tag => 'li', :content => @amazon_locotion.name },
+                   { :tag => 'li', :content => @robotcoop_location.name })
 
     assert_ajax_form('locations', '/groups/del_location',
                      { :type => 'hidden', :name => 'location_id', :value => @robotcoop_location.id },
@@ -281,10 +292,10 @@ class TestGroupsController < FunctionalTestCase
                      { :type => 'image',  :src => '/images/delete.png' })
 
     assert_section('events',
-                   { :tag => 'td', :content => @amazon_locotion.name },
-                   { :tag => 'td', :content => @robotcoop_location.name },
-                   { :tag => 'td', :content => @evan_subject.description },
-                   { :tag => 'td', :content => @eric_subject.description })
+                   { :tag => 'li', :content => @amazon_locotion.name },
+                   { :tag => 'li', :content => @robotcoop_location.name },
+                   { :tag => 'li', :content => @evan_subject.description },
+                   { :tag => 'li', :content => @eric_subject.description })
 
     assert_ajax_form('events', '/groups/add_subject',
                      { :type => 'hidden', :name => 'event_id', :value => @monthly_event.id },

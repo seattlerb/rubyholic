@@ -26,15 +26,11 @@ em u { color: black; }
 
 .list li { font-family: Monaco, Courier, monospace; }
 
+#edit li { list-style: none; }
+
 .header {
     float: right;
     width:150px;
     text-align: right;
     margin: .5em;
-}
-
-.urllabel { // argh. TODO: make this look like apple's address book labels
-    background-color: #666;
-    padding-left, padding-right: 2px;
-    color: white;
 }

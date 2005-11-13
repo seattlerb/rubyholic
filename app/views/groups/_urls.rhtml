@@ -1,28 +1,22 @@
 <h2>URLs</h2>
 
-<table>
-  <tr>
-    <td colspan=2>
+<ul>
+  <% @group.urls.each do |url| %>
+    <li>
+      <%= form_remote_tag :update => "urls", :url => { :action => :del_url } %>
+        <input type="image" src="/images/delete.png">
+        <%= hidden_field_tag :id, @group.id %>
+        <%= hidden_field_tag :url_id, url.id %>
+        <span class="url_label"><%= url.label %></span>: <%= url.url %>
+      <%= end_form_tag %>
+    </li>
+  <% end %>
+  <li>
     <%= form_remote_tag(:update => "urls", :url => { :action => :add_url } ) %> 
       <input type="image" src="/images/add.png">
       <%= hidden_field_tag 'id', @group.id %>
       <%= text_field_tag :label, '', { :size => 10 } %>
       <%= text_field_tag :url, '', { :size => 50 } %>
     <%= end_form_tag %>
-    </td>
-  </tr>
-  <% @group.urls.each do |url| %>
-    <tr>
-      <%= form_remote_tag :update => "urls", :url => { :action => :del_url } %>
-      <td>
-	<input type="image" src="/images/delete.png">
-      </td>
-      <td>
-	<%= hidden_field_tag :id, @group.id %>
-	<%= hidden_field_tag :url_id, url.id %>
-	<span class="url_label"><%= url.label %></span>: <%= url.url %>
-      </td>
-      <%= end_form_tag %>
-    </tr>
-  <% end %>
-</table>
+  </li>
+</ul>

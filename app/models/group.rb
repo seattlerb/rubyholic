@@ -11,7 +11,7 @@ class Group < ActiveRecord::Base
 
     thing = model.new params
     self.send(plural) << thing
-    self.save
+    thing.save
     thing
   end
 
