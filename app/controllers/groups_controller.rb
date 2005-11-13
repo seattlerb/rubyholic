@@ -67,37 +67,37 @@ class GroupsController < ApplicationController
     @group = Group.find params[:id]
     Location.create :name => params[:name], :group_id => @group.id
     @group.reload
-    render :partial => 'locations'
+    render :partial => 'locations_and_events'
   end
 
   def del_location
     Location.destroy params[:location_id]
     @group = Group.find params[:id]
-    render :partial => 'locations'
+    render :partial => 'locations_and_events'
   end
 
   def add_event
     @group = Group.find params[:id]
     Event.create :summary => params[:summary], :group_id => @group.id, :location_id => params[:location_id], :start => params[:start]
     @group.reload
-    render :partial => 'events'
+    render :partial => 'locations_and_events'
   end
 
   def del_event
     Event.destroy params[:event_id]
     @group = Group.find params[:id]
-    render :partial => 'events'
+    render :partial => 'locations_and_events'
   end
 
   def add_subject
     Subject.create :description => params[:description], :event_id => params[:event_id]
     @group = Group.find params[:id]
-    render :partial => 'events'
+    render :partial => 'locations_and_events'
   end
 
   def del_subject
     Subject.destroy params[:subject_id]
     @group = Group.find params[:id]
-    render :partial => 'events'
+    render :partial => 'locations_and_events'
   end
 end

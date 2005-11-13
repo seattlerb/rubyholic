@@ -265,44 +265,44 @@ class TestGroupsController < FunctionalTestCase
     # locations
     assert_tag :tag => "h2", :content => "Locations"
 
-    assert_ajax_form('locations', '/groups/add_location',
+    assert_ajax_form('locations_and_events', '/groups/add_location',
                      { :type => 'text', :name => 'name', :value => /^$/ },
                      { :type => 'image',  :src => '/images/add.png' })
 
-    assert_section('locations',
+    assert_section('locations_and_events',
                    { :tag => 'li', :content => @amazon_locotion.name },
                    { :tag => 'li', :content => @robotcoop_location.name })
 
-    assert_ajax_form('locations', '/groups/del_location',
+    assert_ajax_form('locations_and_events', '/groups/del_location',
                      { :type => 'hidden', :name => 'location_id', :value => @robotcoop_location.id },
                      { :type => 'image',  :src => '/images/delete.png' })
 
     # events
     assert_tag :tag => "h2", :content => "Events"
 
-    assert_ajax_form('events', '/groups/add_event',
+    assert_ajax_form('locations_and_events', '/groups/add_event',
                      { :type => 'text', :name => 'start', :value => /^YYYY-MM-DD hh:mm$/ },
                      { :type => 'text', :name => 'summary', :value => /^$/ },
                      { :type => 'image',  :src => '/images/add.png' }) do |url|
       assert_tag_in_form url, :tag => 'select', :attributes => { :name => 'location_id' }
     end
 
-    assert_ajax_form('events', '/groups/del_event',
+    assert_ajax_form('locations_and_events', '/groups/del_event',
                      { :type => 'hidden', :name => 'event_id', :value => @monthly_event.id },
                      { :type => 'image',  :src => '/images/delete.png' })
 
-    assert_section('events',
+    assert_section('locations_and_events',
                    { :tag => 'li', :content => @amazon_locotion.name },
                    { :tag => 'li', :content => @robotcoop_location.name },
                    { :tag => 'li', :content => @evan_subject.description },
                    { :tag => 'li', :content => @eric_subject.description })
 
-    assert_ajax_form('events', '/groups/add_subject',
+    assert_ajax_form('locations_and_events', '/groups/add_subject',
                      { :type => 'hidden', :name => 'event_id', :value => @monthly_event.id },
                      { :type => 'text', :name => 'description', :value => /^$/ },
                      { :type => 'image',  :src => '/images/add.png' })
 
-    assert_ajax_form('events', '/groups/del_subject',
+    assert_ajax_form('locations_and_events', '/groups/del_subject',
                      { :type => 'hidden', :name => 'event_id', :value => @monthly_event.id },
                      { :type => 'hidden', :name => 'subject_id', :value => @evan_subject.id },
                      { :type => 'image',  :src => '/images/delete.png' })
