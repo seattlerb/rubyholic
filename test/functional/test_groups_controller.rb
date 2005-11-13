@@ -218,6 +218,15 @@ class TestGroupsController < FunctionalTestCase
 #    assert_match /fuck/, html
   end
 
+  def test_edit_no_locations
+    Location.delete_all # should cascade to everything
+
+    get :edit, :id => @seattle.id
+    assert_success
+
+    assert_no_match %r%/groups/add_event%, @response.body
+  end
+  
   def test_edit
     get :edit, :id => @seattle.id
     assert_success

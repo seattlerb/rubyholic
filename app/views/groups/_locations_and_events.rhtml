@@ -56,14 +56,18 @@
     </li>
   <% end %>
   <li>
-    <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_event } ) %> 
-      <%= hidden_field_tag 'id', @group.id %>
-      <input type="image" src="/images/add.png">
-      <select name="location_id">
-        <%= options_from_collection_for_select(@group.locations, :id, :name) %>
-      </select>
-      <%= text_field_tag :start, 'YYYY-MM-DD hh:mm' %>
-      <%= text_field_tag :summary, '', { :size => 50, :maxlength => 255 } %>
-    <%= end_form_tag %>
+    <% unless @group.locations.empty? then %>
+      <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_event } ) %> 
+        <%= hidden_field_tag 'id', @group.id %>
+	<input type="image" src="/images/add.png">
+	<select name="location_id">
+          <%= options_from_collection_for_select(@group.locations, :id, :name) %>
+	</select>
+	<%= text_field_tag :start, 'YYYY-MM-DD hh:mm' %>
+	<%= text_field_tag :summary, '', { :size => 50, :maxlength => 255 } %>
+      <%= end_form_tag %>
+    <% else %>
+      You need to have locations defined before you can create events
+    <% end %>
   </li>
 </ul>
