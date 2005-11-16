@@ -7,14 +7,18 @@
 <body>
 
 <% if params[:action] != "index" %>
-  <%= header %>
+  <span class="header">
+    <%= link_to "[Home]", :action => :index %>
+  </span>
 <% end %>
 
 <p style="color: green"><%= flash[:notice] %></p>
 
 <%= @content_for_layout %>
 
-<%= footer %>
+<p class="footer">
+  <%= link_to "Rubyholic.com, v. #{Group::RUBYHOLIC_VERSION}", :action => :index %>
+</p>
 
 </body>
 </html>

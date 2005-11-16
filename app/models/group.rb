@@ -1,5 +1,8 @@
 
 class Group < ActiveRecord::Base
+
+  RUBYHOLIC_VERSION = "1.0 beta" unless defined? RUBYHOLIC_VERSION
+
   has_many :contacts
   has_many :locations, :order => "name ASC"
   has_many :events, :order => "start ASC"
