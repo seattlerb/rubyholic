@@ -9,11 +9,9 @@ class TestGroupsController < FunctionalTestCase
     assert_success
 
     assert_links_to "/groups/show/101"
-    assert_links_to "mailto:ryand-rubyholic@zenspider.com"
 
     assert_tag :tag => 'div', :attributes => { :class => 'blurb' }
     assert_tag :tag => 'div', :attributes => { :class => 'list' }
-    assert_tag :tag => 'div', :attributes => { :class => 'todo' }
 
     x = "/groups/create"
     assert_tag :tag => 'form', :attributes => { :action => x }
