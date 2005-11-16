@@ -9,11 +9,9 @@ class TestGroupsController < FunctionalTestCase
     assert_success
 
     assert_links_to "/groups/show/101"
-    assert_links_to "mailto:ryand-rubyholic@zenspider.com"
 
     assert_tag :tag => 'div', :attributes => { :class => 'blurb' }
     assert_tag :tag => 'div', :attributes => { :class => 'list' }
-    assert_tag :tag => 'div', :attributes => { :class => 'todo' }
 
     x = "/groups/create"
     assert_tag :tag => 'form', :attributes => { :action => x }
@@ -155,17 +153,19 @@ class TestGroupsController < FunctionalTestCase
   end
 
   def test_add_url_no_XSS
-    url = '<script>document.write("http://foo");</script>'
+    bad = 'document.write("http://foo");'
+    url = "<script>#{bad}</script>"
+
     label = '<p>hi</p>'
 
     new_urls = util_add_url :url => url, :label => label
     assert 1, new_urls.size
 
     assert_no_tag :tag => 'p', :content => 'hi'
-    assert_tag :content => %r!&lt;p&gt;hi&lt;/p&gt;!
+    assert_no_tag :tag => 'script', :content => bad
 
-    assert_no_tag :content => /#{url}/
-    assert_tag :content => %r!&lt;script&gt;document.write("http://foo");&lt;/script&gt;!
+    assert_tag :content => %r%&lt;p&gt;hi&lt;/p&gt;%
+    assert_tag :content => %r%&lt;script&gt;document\.write\(&quot;http://foo&quot;\);&lt;/script&gt;%
   end
 
   def test_del_url

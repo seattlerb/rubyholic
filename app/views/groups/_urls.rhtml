@@ -15,7 +15,7 @@
         <input type="image" src="/images/delete.png">
         <%= hidden_field_tag :id, @group.id %>
         <%= hidden_field_tag :url_id, url.id %>
-        <span class="url_label"><%= url.label %></span>: <%= url.url %>
+        <span class="url_label"><%= h url.label %></span>: <%= h url.url %>
       <%= end_form_tag %>
     </li>
   <% end %>

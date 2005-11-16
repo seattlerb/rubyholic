@@ -7,7 +7,7 @@
 	<input type="image" src="/images/delete.png">
 	<%= hidden_field_tag :id, @group.id %>
 	<%= hidden_field_tag :location_id, location.id %>
-	<%= location.name %>
+	<%= h location.name %>
       <%= end_form_tag %>
     </li>
   <% end %>
@@ -29,7 +29,7 @@
           <input type="image" src="/images/delete.png">
           <%= hidden_field_tag :id, @group.id %>
           <%= hidden_field_tag :event_id, event.id %>
-          <%= event.location.name %> at <%= event.start %>: <%= event.summary %>
+          <%= h event.location.name %> at <%= h event.start %>: <%= h event.summary %>
         <%= end_form_tag %>
 
         <ul>
@@ -40,7 +40,7 @@
 		<%= hidden_field_tag :id, @group.id %>
 		<%= hidden_field_tag :event_id, event.id %>
 		<%= hidden_field_tag :subject_id, subject.id %>
-		<%= subject.description %>
+		<%= h subject.description %>
               <%= end_form_tag %>
             </li>
           <% end %>
