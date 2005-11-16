@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   database: rubyholic_development
   host: localhost
-  username: drbrain
+  username: ryan
   password: 
 
 # Warning: The database defined as 'test' will be erased and
@@ -12,7 +12,7 @@ test:
   adapter: postgresql
   database: rubyholic_test
   host: localhost
-  username: drbrain
+  username: ryan
   password:
 
 production:
