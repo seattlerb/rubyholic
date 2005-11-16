@@ -24,6 +24,12 @@ em u { color: black; }
     font-size: 1.2em;
 }
 
+.disclaimer {
+    color: red;
+    font-size: 0.8em;
+    text-align: center;
+}
+
 .list li { font-family: Monaco, Courier, monospace; }
 
 #edit li { list-style: none; }
