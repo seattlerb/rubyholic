@@ -1,5 +1,13 @@
 <h2>URLs</h2>
 
+<% if @missing_label then -%>
+<p class="error">Your URL is missing the label.</p>
+<% end -%>
+
+<% if @missing_url then -%>
+<p class="error">Your URL is missing the URL.</p>
+<% end -%>
+
 <ul>
   <% @group.urls.each do |url| %>
     <li>

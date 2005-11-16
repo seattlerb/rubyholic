@@ -117,21 +117,41 @@ class TestGroupsController < FunctionalTestCase
     util_del @seattle, Contact
   end
 
-  def test_add_url
-    url = "http://www.example.com/blah/#{Time.now.to_i}"
+  def util_add_url(params)
     orig_urls = @seattle.urls[0..-1]
+    params = params.merge :id => @seattle.id
 
-    post :add_url, :id => @seattle.id, :url => url
+    post :add_url, params
     assert_success
 
     @seattle.reload
-    new_urls = @seattle.urls - orig_urls
+    return @seattle.urls - orig_urls
+  end
+
+  def test_add_url
+    url = "http://www.example.com/blah/#{Time.now.to_i}"
+
+    new_urls = util_add_url :url => url, :label => 'www'
 
     assert 1, new_urls.size
     new_url = new_urls.first
     assert_not_nil new_url
     assert_kind_of Url, new_url
     assert_equal url, new_url.url
+    assert_equal 'www', new_url.label
+  end
+
+  def test_add_url_no_label
+    url = "http://www.example.com/blah/#{Time.now.to_i}"
+    new_urls = util_add_url :url => url
+    assert 0, new_urls.size
+    assert_tag :content => 'Your URL is missing the label'
+  end
+
+  def test_add_url_no_url
+    new_urls = util_add_url :label => 'www'
+    assert 0, new_urls.size
+    assert_tag :content => 'Your URL is missing the URL'
   end
 
   def test_del_url

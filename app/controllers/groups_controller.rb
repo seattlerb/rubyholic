@@ -35,10 +35,15 @@ class GroupsController < ApplicationController
 
   def add_url
     @group = Group.find params[:id]
-    if @group then
+
+    @missing_url = !params.include?(:url)
+    @missing_label = !params.include?(:label)
+
+    if @group and not (@missing_label or @missing_url) then
       Url.create(:url => params[:url], :label => params[:label], :group_id => @group.id)
       @group.reload
     end
+
     render :partial => 'urls'
   end
 
