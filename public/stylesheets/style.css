@@ -38,11 +38,10 @@ h1, h2, h3, h4, h5, h6
     padding: 0px;
 }
 
-em u { color: black; }
-
 .blurb {
-    background-color: #EEF;
-    color: red;
+    background-color: #890000;
+    color: white;
+    border: 2px solid black;
     float: right;
     width:175px;
     padding-left: .5em;
