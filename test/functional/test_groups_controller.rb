@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../unit/test_contact'
 
 class TestGroupsController < FunctionalTestCase
 
@@ -95,9 +96,10 @@ class TestGroupsController < FunctionalTestCase
   def test_add_contact
     name = "a name"
     mail = "name@example.com"
+    passwd = "password"
     orig_contacts = @seattle.contacts[0..-1]
 
-    post :add_contact, :id => @seattle.id, :name => name, :email => mail
+    post :add_contact, :id => @seattle.id, :name => name, :email => mail, :passwd => passwd
     assert_success
 
     @seattle.reload
@@ -109,6 +111,7 @@ class TestGroupsController < FunctionalTestCase
     assert_kind_of Contact, new_contact
     assert_equal name, new_contact.name
     assert_equal mail, new_contact.email
+    assert_equal TestContact::PASSWORD, new_contact.password
   end
 
   def test_del_contact
@@ -295,14 +298,15 @@ class TestGroupsController < FunctionalTestCase
     assert_ajax_form('contacts', '/groups/add_contact',
                      { :type => 'text', :name => 'name', :value => /^$/ },
                      { :type => 'text', :name => 'email', :value => /^$/ },
+                     { :type => 'password', :name => 'passwd', :value => /^$/ },
                      { :type => 'image',  :src => '/images/add.png' })
 
     assert_section('contacts', 
-                   { :tag => 'li', :content => @ryan_contact.email },
-                   { :tag => 'li', :content => @eric_contact.email })
+                   { :tag => 'li', :content => @ryan.email },
+                   { :tag => 'li', :content => @eric.email })
 
     assert_ajax_form('contacts', '/groups/del_contact',
-                     { :type => 'hidden', :name => 'contact_id', :value => @eric_contact.id },
+                     { :type => 'hidden', :name => 'contact_id', :value => @eric.id },
                      { :type => 'image',  :src => '/images/delete.png' })
 
     # locations

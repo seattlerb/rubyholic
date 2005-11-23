@@ -1,5 +1,10 @@
 class GroupsController < ApplicationController
 
+#   verify(:exclude => [ :index, :list, :show, :login, ],
+#          :session => :email,
+#          :add_flash => { :note => "You must log in to edit"},
+#          :redirect_to => :login)
+
   def index
     @group = Group.new
     @groups = Group.find :all
@@ -56,7 +61,7 @@ class GroupsController < ApplicationController
   def add_contact
     @group = Group.find params[:id]
     if @group then
-      @group.new_contact params[:name], params[:email]
+      @group.new_contact params[:name], params[:email], params[:passwd]
       @group.reload
     end
     render :partial => 'contacts'

@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<p class="disclaimer">This app is in beta, expect the data to be temporary.</p>
+<h1 id="masthead">&nbsp;</h1>
+
+<div id="content">
 
 <% if params[:action] != "index" %>
   <span class="header">
@@ -18,7 +20,9 @@
 
 <%= @content_for_layout %>
 
-<p class="footer">
+</div>
+
+<p id="footer">
   <%= link_to "Rubyholic.com, v. #{Group::RUBYHOLIC_VERSION}", :action => :index %>
 </p>
 

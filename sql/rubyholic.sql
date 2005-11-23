@@ -42,6 +42,7 @@ CREATE TABLE contacts (
     id integer NOT NULL PRIMARY KEY DEFAULT nextval('contacts_id_seq'::text),
     name varchar(50),
     email varchar(50),
+    password varchar(40) not null,
     group_id INTEGER NOT NULL references "groups" ("id")
 );
 

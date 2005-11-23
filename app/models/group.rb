@@ -18,8 +18,8 @@ class Group < ActiveRecord::Base
     thing
   end
 
-  def new_contact(name, email)
-    _new_thing Contact, :name => name, :email => email
+  def new_contact(name, email, password)
+    _new_thing Contact, :name => name, :email => email, :passwd => password
   end
 
   def new_url(label, url)

@@ -1,7 +1,33 @@
 html {
     font-family: Optima, Verdana, sans-serif;
-    margin: 1em;
     background-color: white;
+}
+
+body {
+	padding: 1em 0; margin: 0;
+	background: white url(/images/stars.png) repeat-x 0 3em; 
+}
+
+#content {
+	margin-left: 3em; margin-right: 3em;
+//	width: 600px;
+}
+
+#masthead {
+	margin-left: auto; margin-right: auto;
+	background: white url(/images/rubyholic.png) no-repeat;
+	width: 417px;
+	height: 96px;
+}
+
+#footer {
+	text-align: center;
+	background: white url(/images/stars.png) repeat-x;
+	margin: 0;
+	padding-top: 40px;
+}
+#footer a, #footer a:hover, #footer a:visited {
+	color: black;
 }
 
 h1, h2, h3, h4, h5, h6
@@ -18,9 +44,11 @@ em u { color: black; }
     background-color: #EEF;
     color: red;
     float: right;
-    width:150px;
-    padding: .5em;
-    margin: .5em;
+    width:175px;
+    padding-left: .5em;
+    padding-right: .5em;
+    margin-right: -1.5em;
+    margin-top: -2em;
     font-size: 1.2em;
 }
 
