@@ -1,28 +1,49 @@
-<%= start_form_tag :action => 'update', :id => @group %>
+<%= error_messages_for 'group' %>
 
-  <%= error_messages_for 'group' %>
-
-  <h2>Basic Information</h2>
-
-  <table>
-    <%= form_field 'text', 'group', 'name', 'Name' %>
-    <%= form_field 'text', 'group', 'city', 'City' %>
-  </table>
-
-  <%= submit_tag 'Update' %>
-  
-<%= end_form_tag %>
-
-<div id="edit">
-  <div id="urls">
-    <%= render :partial => 'urls' %>
+<div id="dialog">
+  <div id="dialog_header_edit">
+    <span style="float: left">
+      <h1><%= @group.name %> </h1>
+      <h2><%= @group.city %></h2>
+    </span>
+    <span style="float: right; margin-top: 3px; margin-bottom: 3px;">
+      <%= link_to "Close", :action => :show, :model => @group %>
+    </span>
   </div>
 
-  <div id="contacts">
-    <%= render :partial => 'contacts' %>
-  </div>
+  <div id="dialog_body">
 
-  <div id="locations_and_events">
-    <%= render :partial => 'locations_and_events' %>
+    <h2>Group Information</h2>
+    
+    <%= start_form_tag :action => 'update', :id => @group %>
+
+    <table style="background: #efefef; width: 80%; padding-left: 5px; padding-bottom: 5px; margin-left: 20px;">
+      <%= form_field 'text', 'group', 'name', 'Name' %>
+      <%= form_field 'text', 'group', 'city', 'City' %>
+    </table>
+
+    <div class="dialog_action" >
+      <img alt="Indicator" height="16" id="new_next_action_spinner" src="/images/indicator.gif" style="display: none" width="16" />
+      <%= submit_tag("Update this group") %> or
+      <%= link_to('Stop editing this group', {:action => 'show', :id => @group.id}, {'class' => 'admin'}) %>
+    </div>
+    <%= end_form_tag %>
+
+    <div id="edit">
+
+      <div id="locations_and_events">
+	<%= render :partial => 'locations_and_events' %>
+      </div>
+
+      <div id="contacts">
+	<%= render :partial => 'contacts' %>
+      </div>
+
+      <div id="urls">
+	<%= render :partial => 'urls' %>
+      </div>
+
+    </div>
   </div>
 </div>
+

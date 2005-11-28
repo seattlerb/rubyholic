@@ -1,54 +1,242 @@
 html {
-    font-family: Optima, Verdana, sans-serif;
-    background-color: white;
+  background-color: #890000;
 }
 
 body {
-	padding: 1em 0; margin: 0;
-	background: white url(/images/stars.png) repeat-x 0 3em; 
+/*       font:12pt/12pt Tahoma, sans-serif;       */
+/*       font-family: Helvetica, Arial, sans-serif; */
+  font-family: Trebuchet, "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+  background: #890000;
+  color: #555;
+  width: 780px;
+  padding: 0;
+  margin: 0 auto 0 auto;
 }
+
+#page {
+  font-size: 12px;
+  line-height: 18px;
+  position: relative;
+  background: white url(/images/wrapper_middle.gif) top center repeat-y;
+  min-height: 800px;
+}
+
+h1, h2, h3 { 
+  margin: 0;            
+}
+
+h1 { 
+  color: #333;
+ }
+
+a {
+  color: #333;
+}
+
+a:hover {
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+}
+
+form {
+  margin: 0;
+}
+
+#header, #content, #footer
+{  
+  position: relative;
+}
+
+#header {
+  background: url(/images/wrapper_top.gif) top center no-repeat;
+  margin:0 auto; 
+  width:780px;
+  margin-bottom: 10px;
+}
+
+#header div.line { 
+  text-align: center;
+/*  width: 80%; */
+  border-bottom: 1px dotted #999;  
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 10px;
+ }
+
+#header h1 {
+  font-size: 32px; 
+  font-weight: bold;
+  color:  #890000;
+  padding-top: 30px;
+  padding-left: 20px;
+  letter-spacing: -3px;
+}
+
+#header h1 span.holic { 
+  color: #333;        
+  padding-left: 1px;                        
+ }
 
 #content {
-	margin-left: 3em; margin-right: 3em;
-//	width: 600px;
-}
-
-#masthead {
-	margin-left: auto; margin-right: auto;
-	background: white url(/images/rubyholic.png) no-repeat;
-	width: 417px;
-	height: 96px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 #footer {
-	text-align: center;
-	background: white url(/images/stars.png) repeat-x;
-	margin: 0;
-	padding-top: 40px;
-}
-#footer a, #footer a:hover, #footer a:visited {
-	color: black;
+  margin:2em auto;
+  padding:2em 0 0 0;
+  text-align:center;
+  clear:both;
 }
 
-h1, h2, h3, h4, h5, h6
-{
-    font-family: Palatino, Times, serif;
-    font-weight: normal;
-    margin: 0px;
-    padding: 0px;
+a.admin, a.admin:visited {  
+  font-size: 12px;
+  color: #890000;
+  text-decoration: none;
+ }
+
+a.admin:hover {  
+  background-color: #890000;
+  color: #fff;
+}
+
+div.flash { 
+  color: #890000;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#dialog {
+  border-top: 1px solid #ccc;         
+  border-left: 1px solid #ccc;         
+  padding-bottom: 20px;
+  color: #333;
+}
+
+#dialog_header, #dialog_header_edit { 
+  background: #ccc;
+  padding: 5px 5px 5px 5px;
+  height: 25px;
+ }
+
+#dialog h3 {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  color: #333;
+  color:  #890000;
+  border-bottom: 1px dotted #999;  
+}
+
+#dialog_body h2 {
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  font-size: 14px;
+  letter-spacing: -1px;
+  color:  #890000;
+  border-bottom: 1px dotted #999;  
+}
+
+#dialog_header h1 {
+  color:  #890000;
+  display: inline;
+}
+
+#dialog_header h2 {
+  color:  #333;
+  display: inline;
+}
+
+#dialog_header_edit { 
+  background: #333;                      
+}
+
+#dialog_header_edit h1, #dialog_header_edit h2 { 
+  color: #fff;
+  display: inline;
+}
+
+#dialog_header h2, #dialog_header_edit h2 {
+  font-size: 14px;            
+}
+
+#dialog_header a, #dialog_header a:visited {  
+  background-color: #fff;
+  color: #555;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-decoration: none;
+ }
+
+#dialog_header a:hover {  
+  background-color: #555;
+  color: #fff;
+ }
+
+#dialog_header_edit a, #dialog_header_edit a:visited {  
+  background-color: #555;
+  color: #fff;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-decoration: none;
+ }
+
+#dialog_header_edit a:hover {  
+  background-color: #fff;
+  color: #555;
+ }
+
+#dialog_body { 
+  margin-left: 10px;
+  margin-top: 20px;                  
+ }
+
+#dialog_body div.dialog_action {
+	font-size: 10px;
+	margin: 10px 0 0 0;
+	padding: 5px 5px 5px 5px;
+	border-top: 1px dotted #999;
+	text-align: right;
+}
+
+#dialog_body table { 
+  padding: 10px;                             
+}
+
+#dialog_body_edit { 
+  background: #ccc;
+ }
+
+#dialog_body table th { 
+  padding: 5px 5px 5px 5px;
+  width: 100px;
+  text-align: left;
+}
+
+#dialog_body table td { 
+  padding: 5px 5px 5px 5px;
 }
 
 .blurb {
-    background-color: #890000;
-    color: white;
-    border: 2px solid black;
-    float: right;
-    width:175px;
-    padding-left: .5em;
-    padding-right: .5em;
-    margin-right: -1.5em;
-    margin-top: -2em;
-    font-size: 1.2em;
+  background-color: #ccc;
+  color: #333;;
+  float: right;
+  width:200px;
+  padding: 10px;         
+  margin-right: 10px;
+  font-size: 16px;
 }
 
 .disclaimer {
@@ -57,13 +245,77 @@ h1, h2, h3, h4, h5, h6
     text-align: center;
 }
 
-.list li { font-family: Monaco, Courier, monospace; }
-
-#edit li { list-style: none; }
-
 .header {
-    float: right;
+    float: left;
     width:150px;
-    text-align: right;
     margin: .5em;
+}
+
+ul { 
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+  padding-left: 0;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+ }
+
+li { 
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+  font-size: 18px;
+ }
+
+span.smaller { 
+  font-size: 14px;
+}
+
+span.standout { 
+  color: #890000;
+ }
+
+ul.subjects { 
+  margin-top: 5px;
+  padding-top: 0;
+}
+
+ul.subjects li { 
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding-bottom: 0;
+}
+
+div.list ul { 
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  padding-top: 0;
+  margin-bottom: 10px;
+  padding-bottom: 0;
+ }
+
+div.list ul li { 
+  padding: 0;
+  margin: 0;
+  margin-top: 5px;
+  padding-top: 0;
+ }
+
+div.list p { 
+  font-size: 16px;
+ }
+
+div.rules ol {
+}
+
+div.rules ol li { 
+  list-style-type: decimal;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 5px;
+  padding-bottom: 0;
 }

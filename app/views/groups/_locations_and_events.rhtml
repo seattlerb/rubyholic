@@ -2,21 +2,33 @@
 
 <ul>
   <% @group.locations.each do |location| %>
-    <li>
-      <%= form_remote_tag :update => "locations_and_events", :url => { :action => :del_location } %>
-	<input type="image" src="/images/delete.png">
-	<%= hidden_field_tag :id, @group.id %>
-	<%= hidden_field_tag :location_id, location.id %>
-	<%= h location.name %>
-      <%= end_form_tag %>
-    </li>
-  <% end %>
   <li>
-    <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_location } ) %> 
-      <input type="image" src="/images/add.png">
-      <%= hidden_field_tag 'id', @group.id %>
-      <%= text_field_tag :name, '', { :size => 50 } %>
+    <%= form_remote_tag :update => "locations_and_events", :url => { :action => :del_location }, :before => "groupManager.onDeleteLocation(#{location.id})" %>
+    <input type="image" src="/images/delete.png">
+    <%= image_tag("indicator.gif", {:id => "location_spinner_#{location.id}", :style => "display: none"}) %>
+    <%= hidden_field_tag :id, @group.id %>
+    <%= hidden_field_tag :location_id, location.id %>
+    <%= h location.name %>
     <%= end_form_tag %>
+  </li>
+  <% end %>
+  <li id="new_location" style="display: none">
+    <div style="background: #efefef; width: 80%; padding-left: 5px; padding-bottom: 5px; padding-right: 5px;">
+      <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_location }, :before => "groupManager.onCreateLocation()" ) %>
+      <table>
+	<tr>
+	  <th width="400px;">Name and Address: </th>
+	  <td><%= text_field_tag :name, '', { :size => 50 } %></td>
+	</tr>
+      </table>
+      <%= hidden_field_tag 'id', @group.id %>
+      <%= image_tag("indicator.gif", {:id => 'new_location_spinner', :style => "display: none"}) %>
+      <%= submit_tag "Add Location" %> or <%= link_to_function('Close', "groupManager.toggleAddLocation()", :class => 'admin') %>
+      <%= end_form_tag %>
+    </div>
+  </li>
+  <li id="add_location">
+    <%= link_to_function('add location', 'groupManager.toggleAddLocation()', :class => 'admin') %>
   </li>
 </ul>
 
@@ -24,50 +36,82 @@
 
 <ul>
   <% @group.events.each do |event| %>
-    <li>
-        <%= form_remote_tag :update => "locations_and_events", :url => { :action => :del_event } %>
-          <input type="image" src="/images/delete.png">
-          <%= hidden_field_tag :id, @group.id %>
-          <%= hidden_field_tag :event_id, event.id %>
-          <%= h event.location.name %> at <%= h event.start %>: <%= h event.summary %>
-        <%= end_form_tag %>
-
-        <ul>
-          <% event.subjects.each do |subject| %>
-            <li>
-              <%= form_remote_tag :update => "locations_and_events", :url => { :action => :del_subject } %>
-                <input type="image" src="/images/delete.png">
-		<%= hidden_field_tag :id, @group.id %>
-		<%= hidden_field_tag :event_id, event.id %>
-		<%= hidden_field_tag :subject_id, subject.id %>
-		<%= h subject.description %>
-              <%= end_form_tag %>
-            </li>
-          <% end %>
-          <li>
-              <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_subject } ) %> 
-                <input type="image" src="/images/add.png">
-                <%= hidden_field_tag 'id', @group.id %>
-                <%= hidden_field_tag 'event_id', event.id %>
-                <%= text_field_tag :description, '', { :size => 50, :maxlength => 255 } %>
-              <%= end_form_tag %>
-          </li>
-        </ul>
-    </li>
-  <% end %>
   <li>
-    <% unless @group.locations.empty? then %>
-      <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_event } ) %> 
-        <%= hidden_field_tag 'id', @group.id %>
-	<input type="image" src="/images/add.png">
-	<select name="location_id">
-          <%= options_from_collection_for_select(@group.locations, :id, :name) %>
-	</select>
-	<%= text_field_tag :start, 'YYYY-MM-DD hh:mm' %>
-	<%= text_field_tag :summary, '', { :size => 50, :maxlength => 255 } %>
+    <%= form_remote_tag :update => "locations_and_events", :url => { :action => :del_event }, :before => "groupManager.onDeleteEvent(#{event.id})" %>
+    <input type="image" src="/images/delete.png">
+    <%= image_tag("indicator.gif", {:id => "event_spinner_#{event.id}", :style => "display: none"}) %>
+    <%= hidden_field_tag :id, @group.id %>
+    <%= hidden_field_tag :event_id, event.id %>
+    <%= h event.location.name %> at <%= h event.start %>: <%= h event.summary %>
+    <%= end_form_tag %>
+
+    <ul style="margin-bottom: -5px;" class="subjects">
+      <% event.subjects.each do |subject| %>
+      <li>
+	<%= form_remote_tag :update => "locations_and_events", :url => { :action => :del_subject }, :before => "groupManager.onDeleteSubject(#{subject.id})" %>              
+	<input type="image" src="/images/delete.png" width="10px" height="10px">
+	<%= image_tag("indicator.gif", {:id => "subject_spinner_#{subject.id}", :style => "display: none"}) %>
+	<%= hidden_field_tag :id, @group.id %>
+	<%= hidden_field_tag :event_id, event.id %>
+	<%= hidden_field_tag :subject_id, subject.id %>
+	<%= h subject.description %>
+        <%= end_form_tag %>
+      </li>
+      <% end %>
+      <li id="new_subject_<%= event.id %>" style="display: none">
+	<div style="background: #efefef; width: 80%; padding-left: 5px; padding-bottom: 5px; padding-right: 5px;">      
+          <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_subject }, :before => "groupManager.onCreateSubject(#{event.id})" ) %> 	      
+	  <table>
+	    <tr>
+	      <th width="100px;">Subject: </th>
+	      <td><%= text_field_tag :description, '', { :size => 50, :maxlength => 255 } %></td>
+	    </tr>
+	  </table>
+          <%= hidden_field_tag 'id', @group.id %>
+	  <%= hidden_field_tag 'event_id', event.id %>
+	  <%= image_tag("indicator.gif", {:id => "new_subject_spinner_#{event.id}", :style => "display: none"}) %>
+	  <%= submit_tag "Add Subject" %> or <%= link_to_function('Close', "groupManager.toggleAddSubject(#{event.id})", :class => 'admin') %>
+          <%= end_form_tag %>
+	</div>
+      </li>
+      <li id="add_subject_<%= event.id %>">
+	<%= link_to_function('add subject', "groupManager.toggleAddSubject(#{event.id})", :class => 'admin') %>
+      </li>
+    </ul>
+  </li>
+  <% end %>
+  <li id="new_event" style="display: none">
+    <div style="background: #efefef; width: 80%; padding-left: 5px; padding-bottom: 5px; padding-right: 5px;">
+      <% unless @group.locations.empty? then %>
+      <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_event }, :before => "groupManager.onCreateEvent()" ) %> 
+      <%= hidden_field_tag 'id', @group.id %>
+      <table>
+	<tr>
+	  <th width="100px;">Location</th>
+	  <td>
+	    <select name="location_id">
+              <%= options_from_collection_for_select(@group.locations, :id, :name) %>
+	    </select>
+	  </td>
+	</tr>
+	<tr>
+	  <th width="100px;">Start Time</th>
+	  <td><%= text_field_tag :start, 'YYYY-MM-DD hh:mm' %></td>	  
+	</tr>
+	<tr>
+	  <th width="100px;">Summary</th>
+	  <td><%= text_field_tag :summary, '', { :size => 50, :maxlength => 255 } %></td>
+	</tr>
+      </table>
+      <%= image_tag("indicator.gif", {:id => 'new_event_spinner', :style => "display: none"}) %>
+      <%= submit_tag "Add Event" %> or <%= link_to_function('Close', "groupManager.toggleAddEvent()", :class => 'admin') %>
       <%= end_form_tag %>
-    <% else %>
+      <% else %>
       You need to have locations defined before you can create events
-    <% end %>
+      <% end %>
+    </div>
+  </li>
+  <li id="add_event">
+    <%= link_to_function('add event', 'groupManager.toggleAddEvent()', :class => 'admin') %>
   </li>
 </ul>

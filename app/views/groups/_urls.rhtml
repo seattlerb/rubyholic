@@ -10,21 +10,39 @@
 
 <ul>
   <% @group.urls.each do |url| %>
-    <li>
-      <%= form_remote_tag :update => "urls", :url => { :action => :del_url } %>
-        <input type="image" src="/images/delete.png">
-        <%= hidden_field_tag :id, @group.id %>
-        <%= hidden_field_tag :url_id, url.id %>
-        <span class="url_label"><%= h url.label %></span>: <%= h url.url %>
-      <%= end_form_tag %>
-    </li>
-  <% end %>
   <li>
-    <%= form_remote_tag(:update => "urls", :url => { :action => :add_url } ) %> 
-      <input type="image" src="/images/add.png">
-      <%= hidden_field_tag 'id', @group.id %>
-      <%= text_field_tag :label, '', { :size => 10 } %>
-      <%= text_field_tag :url, '', { :size => 50 } %>
+    <%= form_remote_tag :update => "urls", :url => { :action => :del_url }, :before => "groupManager.onDeleteUrl(#{url.id})" %>    
+    <input type="image" src="/images/delete.png">
+    <%= image_tag("indicator.gif", {:id => "url_spinner_#{url.id}", :style => "display: none"}) %>
+    <%= hidden_field_tag :id, @group.id %>
+    <%= hidden_field_tag :url_id, url.id %>
+    <span class="url_label"><%= h url.label %></span>: <%= h url.url %>
     <%= end_form_tag %>
   </li>
+  <% end %>
+
+  <li style="display: none;" id="new_url">
+    <div style="background: #efefef; width: 80%; padding-left: 5px; padding-bottom: 5px; padding-right: 5px;">
+      <%= form_remote_tag(:update => "urls", :url => { :action => :add_url }, :before => "groupManager.onCreateUrl()" ) %>
+      <%= hidden_field_tag 'id', @group.id %>
+      <table>
+	<tr>
+	  <th width="100px;">Label: </th>
+	  <td> <%= text_field_tag :label, '', { :size => 40 } %></td>
+	</tr>
+	<tr>
+	  <th>URL: </th>
+	  <td> <%= text_field_tag :url, '', { :size => 40 } %></td>
+	</tr>
+      </table>
+      <%= image_tag("indicator.gif", {:id => 'new_url_spinner', :style => "display: none"}) %>
+      <%= submit_tag "Add URL" %> or <%= link_to_function('Close', "groupManager.toggleAddUrl()", :class => 'admin') %>
+      <%= end_form_tag %>
+    </div>
+  </li>
+
+  <li id="add_url">
+    <%= link_to_function('add url', 'groupManager.toggleAddUrl()', :class => 'admin') %>
+  </li>
+
 </ul>

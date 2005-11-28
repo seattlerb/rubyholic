@@ -1,5 +1,3 @@
-<h1>Are you a Rubyholic?</h1>
-
 <div class="blurb">
   <p>
     Rubyholic.com was written to help rubyists organize and make it
@@ -12,7 +10,9 @@
   </p>
 </div>
 
-<h2>Find A Group Near You!</h2>
+<h1>Are you a Rubyholic?</h1>
+
+<h2 style="padding-top: 5px;">Find A Group Near You!</h2>
 <div class="list">
   <ul>
     <% @groups.each do |group| %>
@@ -24,7 +24,7 @@
 
   <%= start_form_tag :action => 'create' %>
     <%= error_messages_for 'group' %>
-    <table>
+    <table style="background: #efefef">
       <%= form_field 'text', 'group', 'name', 'Name' %>
       <%= form_field 'text', 'group', 'city', 'City' %>
     </table>

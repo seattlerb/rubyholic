@@ -3,28 +3,30 @@
   <title>Rubyholic.com</title> <!-- TODO: fix the title -->
   <%= stylesheet_link_tag 'style' %>
   <%= javascript_include_tag 'prototype' %>
+  <%= javascript_include_tag 'groups_manager' %>
 </head>
+
 <body>
+<div id="page">
 
-<h1 id="masthead">&nbsp;</h1>
+  <div id="header">
+    <a href="/groups/index" style="text-decoration: none"><h1>ruby<span class="holic">holic</span></h1></a>
+    <div class="line"></div>
+  </div>
+  
+  <div class="flash">&nbsp;
+    <%= flash[:notice] %>
+  </div>
 
-<div id="content">
+  <div id="content">
+    <%= @content_for_layout %>
+  </div>
 
-<% if params[:action] != "index" %>
-  <span class="header">
-    <%= link_to "[Home]", :action => :index %>
-  </span>
-<% end %>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
-<%= @content_for_layout %>
+  <p id="footer">
+  <%= link_to "Rubyholic.com, v. #{Group::RUBYHOLIC_VERSION}", :action => :index %>
+  </p>
 
 </div>
-
-<p id="footer">
-  <%= link_to "Rubyholic.com, v. #{Group::RUBYHOLIC_VERSION}", :action => :index %>
-</p>
 
 </body>
 </html>

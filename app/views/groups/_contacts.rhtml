@@ -3,21 +3,41 @@
 <ul>
   <% @group.contacts.each do |contact| %>
     <li>
-      <%= form_remote_tag :update => "contacts", :url => { :action => :del_contact } %>
+      <%= form_remote_tag :update => "contacts", :url => { :action => :del_contact }, :before => "groupManager.onDeleteContact(#{contact.id})" %>
         <input type="image" src="/images/delete.png">
+	<%= image_tag("indicator.gif", {:id => "contact_spinner_#{contact.id}", :style => "display: none"}) %>
 	<%= hidden_field_tag :id, @group.id %>
 	<%= hidden_field_tag :contact_id, contact.id %>
 	<%= h contact.name %>: <%= h contact.email %>
       <%= end_form_tag %>
     </li>
   <% end %>
-  <li>
-    <%= form_remote_tag(:update => "contacts", :url => { :action => :add_contact } ) %> 
-      <input type="image" src="/images/add.png">
+  <li id="new_contact" style="display: none">
+    <div style="background: #efefef; width: 80%; padding-left: 5px; padding-bottom: 5px; padding-right: 5px;">
+    <%= form_remote_tag(:update => "contacts", :url => { :action => :add_contact }, :before => "groupManager.onCreateContact()" ) %>
+      <table>
+	<tr>
+	  <th width="100px;">Name: </th>
+	  <td><%= text_field_tag :name, '', { :size => 40 } %></td>
+	</tr>
+	<tr>
+	  <th>Email: </th>
+	  <td><%= text_field_tag :email, '', { :size => 40 } %></td>
+	</tr>
+	<tr>
+	  <th>Password: </th>
+	  <td><%= password_field_tag :passwd, '', { :size => 40 } %></td>
+	</tr>
+      </table>      
       <%= hidden_field_tag 'id', @group.id %>
-      <%= text_field_tag :name, '', { :size => 25 } %>
-      <%= text_field_tag :email, '', { :size => 25 } %>
-      <%= password_field_tag :passwd, '', { :size => 25 } %>
+      <%= image_tag("indicator.gif", {:id => 'new_contact_spinner', :style => "display: none"}) %>
+      <%= submit_tag "Add Contact" %> or <%= link_to_function('Close', "groupManager.toggleAddContact()", :class => 'admin') %>
     <%= end_form_tag %>
+    </div>
   </li>
+
+  <li id="add_contact">
+      <%= link_to_function('add contact', 'groupManager.toggleAddContact()', :class => 'admin') %>
+  </li>
+
 </ul>
