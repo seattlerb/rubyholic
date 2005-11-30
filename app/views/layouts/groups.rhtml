@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Rubyholic.com</title> <!-- TODO: fix the title -->
+  <title><%= h (params[:action] =~ /show|edit/) ? @group.name + " on " : '' %> Rubyholic.com v. <%= Group::RUBYHOLIC_VERSION %></title>
   <%= stylesheet_link_tag 'style' %>
   <%= javascript_include_tag 'prototype' %>
   <%= javascript_include_tag 'groups_manager' %>
@@ -8,6 +8,7 @@
 
 <body>
 <div id="page">
+
 
   <div id="header">
     <a href="/groups/index" style="text-decoration: none"><h1>ruby<span class="holic">holic</span></h1></a>

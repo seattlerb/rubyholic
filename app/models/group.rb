@@ -1,7 +1,7 @@
 
 class Group < ActiveRecord::Base
 
-  RUBYHOLIC_VERSION = "1.0 beta" unless defined? RUBYHOLIC_VERSION
+  RUBYHOLIC_VERSION = "1.0" unless defined? RUBYHOLIC_VERSION
 
   has_many :contacts, :exclusively_dependent => true
   has_many :locations, :order => "name ASC", :exclusively_dependent => true
