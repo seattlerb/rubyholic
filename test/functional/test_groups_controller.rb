@@ -33,6 +33,20 @@ class TestGroupsController < FunctionalTestCase
     assert_links_to @seattle_irc_url.url,  @seattle_irc_url.url
     assert_links_to @seattle_mail_url.url, @seattle_mail_url.url
 
+    assert_tag :tag => "h3", :content => "Contacts"
+
+    assert_tag :tag => 'div', :attributes => { :id => 'contacts' }
+
+    assert_tag(:tag => 'ul',
+               :child => {
+                 :tag => 'li',
+                 :child => {
+                   :tag => "a",
+                   :attributes => { :href => "mailto:ryand-ruby@zenspider.com" },
+                   :content => "Ryan Davis"
+                 },
+               })
+
     assert_tag :tag => "h3", :content => "Locations"
 
     assert_tag :tag => 'div', :attributes => { :id => 'locations' }
