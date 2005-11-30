@@ -12,7 +12,7 @@ class TestGroup < Test::Unit::TestCase
   end
 
   def test_new_contact
-    util_new @group, :contact, 'a name', 'an email', 'password'
+    util_new @group, :contact, 'a name', 'an email'
   end
 
   def test_add_url
@@ -20,7 +20,7 @@ class TestGroup < Test::Unit::TestCase
   end
 
   def test_add_location
-    util_new @group, :location, "a location"
+    util_new @group, :location, "a location", "an address"
   end
 
   def test_add_event

@@ -15,7 +15,7 @@ task :init => [:rails, :dbs, :rude]
 task :rails do
   Dir.chdir("vendor") do
     unless test ?d, 'rails' then
-      sh 'svn co http://dev.rubyonrails.org/svn/rails/trunk rails'
+      sh 'svn co -r 2977 http://dev.rubyonrails.org/svn/rails/trunk rails'
       # sh 'patch -p1 < real_unit_testing.diff'
     end
   end

@@ -45,7 +45,7 @@ class GroupsController < ApplicationController
     @missing_label = !params.include?(:label)
 
     if @group and not (@missing_label or @missing_url) then
-      Url.create(:url => params[:url], :label => params[:label], :group_id => @group.id)
+      @group.new_url params[:label], params[:url]
       @group.reload
     end
 
@@ -61,7 +61,7 @@ class GroupsController < ApplicationController
   def add_contact
     @group = Group.find params[:id]
     if @group then
-      @group.new_contact params[:name], params[:email], params[:passwd]
+      @group.new_contact params[:name], params[:email]
       @group.reload
     end
     render :partial => 'contacts'
@@ -75,7 +75,7 @@ class GroupsController < ApplicationController
 
   def add_location
     @group = Group.find params[:id]
-    Location.create :name => params[:name], :group_id => @group.id
+    @group.new_location params[:name], params[:address]
     @group.reload
     render :partial => 'locations_and_events'
   end
@@ -88,7 +88,7 @@ class GroupsController < ApplicationController
 
   def add_event
     @group = Group.find params[:id]
-    Event.create :summary => params[:summary], :group_id => @group.id, :location_id => params[:location_id], :start => params[:start]
+    @group.new_event params[:summary], params[:start], params[:location_id]
     @group.reload
     render :partial => 'locations_and_events'
   end
@@ -100,6 +100,7 @@ class GroupsController < ApplicationController
   end
 
   def add_subject
+    # REFACTOR: make a method on event: new_subject(desc)
     Subject.create :description => params[:description], :event_id => params[:event_id]
     @group = Group.find params[:id]
     render :partial => 'locations_and_events'

@@ -8,7 +8,7 @@
     <%= image_tag("indicator.gif", {:id => "location_spinner_#{location.id}", :style => "display: none"}) %>
     <%= hidden_field_tag :id, @group.id %>
     <%= hidden_field_tag :location_id, location.id %>
-    <%= h location.name %>
+    <%= h location.name %> @ <%= h location.address %>
     <%= end_form_tag %>
   </li>
   <% end %>
@@ -17,8 +17,12 @@
       <%= form_remote_tag(:update => "locations_and_events", :url => { :action => :add_location }, :before => "groupManager.onCreateLocation()" ) %>
       <table>
 	<tr>
-	  <th width="400px;">Name and Address: </th>
+	  <th width="400px;">Name: </th>
 	  <td><%= text_field_tag :name, '', { :size => 50 } %></td>
+	</tr>
+	<tr>
+	  <th width="400px;">Address: </th>
+	  <td><%= text_field_tag :address, '', { :size => 75 } %></td>
 	</tr>
       </table>
       <%= hidden_field_tag 'id', @group.id %>

@@ -17,7 +17,7 @@
     <div id="locations">
       <ul>
 	<% @group.locations.each do |location| %>
-	<li><%= location.name %></li>
+	<li><%= h location.name %> @ <%= h location.address %> <%= link_to "(map)", location.google_url %></li>
 	<% end %>
       </ul>
     </div>

@@ -24,10 +24,6 @@
 	  <th>Email: </th>
 	  <td><%= text_field_tag :email, '', { :size => 40 } %></td>
 	</tr>
-	<tr>
-	  <th>Password: </th>
-	  <td><%= password_field_tag :passwd, '', { :size => 40 } %></td>
-	</tr>
       </table>      
       <%= hidden_field_tag 'id', @group.id %>
       <%= image_tag("indicator.gif", {:id => 'new_contact_spinner', :style => "display: none"}) %>

@@ -3,7 +3,9 @@ robotcoop_location:
   id: 101
   group_id: 101
   name: Robot Co-op
+  address: "1205 E Pike St, #2F, Seattle, WA 98102"
 amazon_locotion:
   id: 102
   group_id: 101
   name: Amazon US1
+  address: "605 5th Ave, Seattle, WA 98104"
