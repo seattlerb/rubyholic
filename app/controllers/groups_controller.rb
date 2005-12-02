@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
 
   def index
     @group = Group.new
-    @groups = Group.find :all
+    @groups = Group.find :all, :order => "name"
   end
 
   def show
