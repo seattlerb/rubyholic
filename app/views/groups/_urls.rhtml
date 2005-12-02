@@ -28,11 +28,11 @@
       <table>
 	<tr>
 	  <th width="100px;">Label: </th>
-	  <td> <%= text_field_tag :label, '', { :size => 40 } %></td>
+	  <td> <%= text_field_tag :label, '', { :size => 10, :maxlength => 10 } %></td>
 	</tr>
 	<tr>
 	  <th>URL: </th>
-	  <td> <%= text_field_tag :url, '', { :size => 40 } %></td>
+	  <td> <%= text_field_tag :url, '', { :size => 60, :maxlength => 255 } %></td>
 	</tr>
       </table>
       <%= image_tag("indicator.gif", {:id => 'new_url_spinner', :style => "display: none"}) %>

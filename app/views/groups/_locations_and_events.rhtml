@@ -18,11 +18,11 @@
       <table>
 	<tr>
 	  <th width="400px;">Name: </th>
-	  <td><%= text_field_tag :name, '', { :size => 50 } %></td>
+	  <td><%= text_field_tag :name, '', { :size => 50, :maxlength => 255 } %></td>
 	</tr>
 	<tr>
 	  <th width="400px;">Address: </th>
-	  <td><%= text_field_tag :address, '', { :size => 75 } %></td>
+	  <td><%= text_field_tag :address, '', { :size => 75, :maxlength => 255 } %></td>
 	</tr>
       </table>
       <%= hidden_field_tag 'id', @group.id %>
