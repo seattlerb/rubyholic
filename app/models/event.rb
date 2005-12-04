@@ -4,7 +4,12 @@ class Event < ActiveRecord::Base
   has_many :subjects, :exclusively_dependent => true
 
   def date
-    self.start.strftime('%F %l:%M%p').sub(/\s+/, ' ').downcase[0..-2]
+    d = self.start
+    if d then
+      d.strftime('%F %l:%M%p').sub(/\s+/, ' ').downcase[0..-2]
+    else
+      "bad date"
+    end
   end
 
   def new_subject description

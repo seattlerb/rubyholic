@@ -15,6 +15,11 @@ class TestEvent < Test::Unit::TestCase
     assert_equal '2005-11-01 7:00p', @event.date
   end
 
+  def test_date_nil
+    @event.start = nil # some people are difficult
+    assert_equal 'bad date', @event.date
+  end
+
   def test_add_subject
     util_new @event, :subject, 'a subject'
   end
