@@ -8,21 +8,24 @@ body {
   font-family: Trebuchet, "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
   background: #890000;
   color: #555;
-  width: 780px;
+  margin: 0;
+  margin-left: 10%;
+  margin-right: 10%;
   padding: 0;
-  margin: 0 auto 0 auto;
 }
 
 #page {
   font-size: 12px;
-  line-height: 18px;
-  position: relative;
+  margin-left: auto;
+  margin-right: auto;
   background: white url(/images/wrapper_middle.gif) top center repeat-y;
   min-height: 800px;
+  width: 780px;
 }
 
 h1, h2, h3 { 
-  margin: 0;            
+  margin: 0; 
+  padding: 0;           
 }
 
 h1 { 
@@ -43,15 +46,8 @@ form {
   margin: 0;
 }
 
-#header, #content, #footer
-{  
-  position: relative;
-}
-
 #header {
   background: url(/images/wrapper_top.gif) top center no-repeat;
-  margin:0 auto; 
-  width:780px;
   margin-bottom: 10px;
 }
 
@@ -61,16 +57,23 @@ form {
   border-bottom: 1px dotted #999;  
   margin-left: 20px;
   margin-right: 20px;
-  padding-top: 10px;
+  padding: 0;
+  display: block;
  }
 
 #header h1 {
-  font-size: 32px; 
+  font-size: 32px;
   font-weight: bold;
   color:  #890000;
+  padding: 0;
+  margin: 0;
   padding-top: 30px;
   padding-left: 20px;
   letter-spacing: -3px;
+}
+
+#header a, #header a:visited, #header a:hover { 
+  background: #fff;                                                
 }
 
 #header h1 span.holic { 
@@ -81,6 +84,7 @@ form {
 #content {
   margin-left: 25px;
   margin-right: 25px;
+  position: relative;
 }
 
 #footer {
@@ -118,8 +122,10 @@ div.flash {
 
 #dialog_header, #dialog_header_edit { 
   background: #ccc;
-  padding: 5px 5px 5px 5px;
-  height: 25px;
+  margin: 0;
+  padding: 0;
+  height: 40px;
+  padding-left: 5px;
  }
 
 #dialog h3 {
@@ -148,6 +154,7 @@ div.flash {
 #dialog_header h1 {
   color:  #890000;
   display: inline;
+  font-size: 32px;
 }
 
 #dialog_header h2 {
@@ -157,6 +164,10 @@ div.flash {
 
 #dialog_header_edit { 
   background: #333;                      
+}
+
+#dialog_header_edit h1 { 
+  font-size: 32px;
 }
 
 #dialog_header_edit h1, #dialog_header_edit h2 { 
@@ -171,11 +182,13 @@ div.flash {
 #dialog_header a, #dialog_header a:visited {  
   background-color: #fff;
   color: #555;
-  padding-left: 15px;
-  padding-right: 15px;
+  text-decoration: none;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
-  text-decoration: none;
+  margin-right: 10px;
+  line-height: 38px;
  }
 
 #dialog_header a:hover {  
@@ -186,10 +199,12 @@ div.flash {
 #dialog_header_edit a, #dialog_header_edit a:visited {  
   background-color: #555;
   color: #fff;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-right: 10px;
+  line-height: 38px;
   text-decoration: none;
  }
 
@@ -288,20 +303,21 @@ ul.subjects li {
   padding-bottom: 0;
 }
 
+div.list { 
+ padding: 0;
+ margin: 0;
+}
+
 div.list ul { 
   padding: 0;
   margin: 0;
-  margin-top: 10px;
-  padding-top: 0;
   margin-bottom: 10px;
-  padding-bottom: 0;
  }
 
 div.list ul li { 
   padding: 0;
   margin: 0;
   margin-top: 5px;
-  padding-top: 0;
  }
 
 div.list p { 
