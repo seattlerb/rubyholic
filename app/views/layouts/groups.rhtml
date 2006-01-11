@@ -1,9 +1,10 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
 <html>
 <head>
   <title><%= h (params[:action] =~ /show|edit/) ? @group.name + " on " : '' %> Rubyholic.com v. <%= Group::RUBYHOLIC_VERSION %></title>
-  <%= stylesheet_link_tag 'style' %>
-  <%= stylesheet_link_tag 'niftyCorners' %>
-  <%= stylesheet_link_tag 'niftyPrint', :media => "print" %>
+  <%= my_stylesheet_link_tag 'niftyCorners' %>
+  <%= my_stylesheet_link_tag 'niftyPrint', :media => "print" %>
+  <%= my_stylesheet_link_tag 'style' %>
   <%= javascript_include_tag 'prototype' %>
   <%= javascript_include_tag 'groups_manager' %>
   <%= javascript_include_tag 'nifty' %>
@@ -20,7 +21,7 @@
 <div id="page">
 
   <div id="header">
-    <a href="/groups/index" style="text-decoration: none"><h1><span class="ruby">ruby</span>holic</h1></a>
+    <h1><a href="/groups/index" style="text-decoration: none"><span class="ruby">ruby</span>holic</a></h1>
     <hr>
   </div>
   

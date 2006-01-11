@@ -4,4 +4,8 @@ module ApplicationHelper
     field = %(<td>#{send "#{type}_field", model, column, options}</td>)
     return ['<tr>', label, field, '</tr>'].join("\n")
   end
+
+  def my_stylesheet_link_tag(*args)
+    stylesheet_link_tag(*args).sub(/\/>/, '>')
+  end
 end
