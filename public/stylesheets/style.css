@@ -282,6 +282,11 @@ div.list {
  margin: 0;
 }
 
+div.filter { 
+ margin-left: 2em;
+ font-size: .8em;
+}
+
 div.list ul { 
   padding: 0;
   margin: 0;

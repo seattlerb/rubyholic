@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class TestGroup < Test::Unit::TestCase
-  fixtures :groups, :locations
+  fixtures :groups, :locations, :contacts
 
   def setup
     @group = Group.find(101)
@@ -25,6 +25,18 @@ class TestGroup < Test::Unit::TestCase
 
   def test_add_event
     util_new @group, :event, "Monthly Meeting", "2005-11-29 19:00", @amazon_locotion
+  end
+
+  def test_good_eh
+    assert @group.good?
+  end
+
+  def test_good_eh_no_location
+    assert ! @bad_group2.good?
+  end
+
+  def test_good_eh_no_contact
+    assert ! @bad_group1.good?
   end
 
 end

@@ -9,3 +9,9 @@ amazon_locotion:
   group_id: 101
   name: Amazon US1
   address: "605 5th Ave, Seattle, WA 98104"
+badgroup1_locotion:
+  id: 103
+  group_id: 102
+  name: badgroup1 location
+  address: somewhere
+

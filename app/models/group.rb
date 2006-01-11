@@ -34,4 +34,9 @@ class Group < ActiveRecord::Base
     where = where.id if Location === where
     _new_thing Event, :summary => what, :start => wwhen, :location_id => where
   end
+
+  def good?
+    return ! (contacts.empty? or locations.empty?)
+  end
+
 end

@@ -8,3 +8,8 @@ eric:
   group_id: 101
   name: Eric Hodel
   email: drbrain@segment7.net
+joe:
+  id: 103
+  group_id: 103
+  name: joe
+  email: joe@example.com

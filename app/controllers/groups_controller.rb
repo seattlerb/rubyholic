@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
   def index
     @group = Group.new
     @groups = Group.find :all, :order => "name"
+    @groups = @groups.select { |group| group.good? } unless params[:all]
   end
 
   def show

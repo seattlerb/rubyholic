@@ -3,5 +3,9 @@ seattle:
   id: 101
   name: Seattle Ruby Brigade!
   city: Seattle, WA
-eric_is_stupid:
+bad_group1:
   id: 102
+  name: Group Without Contact
+bad_group2:
+  id: 103
+  name: Group Without Location
