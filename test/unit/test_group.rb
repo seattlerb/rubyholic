@@ -7,6 +7,11 @@ class TestGroup < Test::Unit::TestCase
     @group = Group.find(101)
   end
 
+  def test_name_or_default
+    @group.name = ""
+    assert_equal "Name Missing! Please Fix", @group.name_or_default
+  end
+
   def test_fixtures
     assert_kind_of Group,  @group
   end
