@@ -8,6 +8,12 @@ class Group < ActiveRecord::Base
   has_many :events, :order => "start ASC", :exclusively_dependent => true
   has_many :urls, :exclusively_dependent => true
 
+  def name_or_default
+    n = self.name
+    n = "Name Missing!" if n.empty?
+    n
+  end
+
   def _new_thing(model, params)
     singular = model.name.downcase
     plural = Inflector.pluralize(singular)
