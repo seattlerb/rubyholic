@@ -11,7 +11,7 @@ class TestGroupsController < FunctionalTestCase
 
     assert_links_to "/groups/show/101"
 
-    assert_tag :tag => 'div', :attributes => { :class => 'blurb' }
+    assert_tag :tag => 'div', :attributes => { :class => 'rounded, blurb' }
     assert_tag :tag => 'div', :attributes => { :class => 'list' }
 
     x = "/groups/create"

@@ -1,6 +1,7 @@
-<div class="blurb">
+<div class="rounded, blurb">
   <p>
-    Rubyholic.com was written to help rubyists organize and make it
+    <span class="ruby">ruby</span>holic.com was written to
+    help <span class="ruby">ruby</span>ists organize and make it
     easier for organizers and potential members find each other.
   </p>
   <p>
@@ -10,9 +11,10 @@
   </p>
 </div>
 
-<h1>Are you a Rubyholic?</h1>
+<h1>Are you a <span class="ruby">ruby</span>holic?</h1>
 
 <h2 style="padding-top: 5px;">Find A Group Near You!</h2>
+
 <div class="list">
   <ul>
     <% @groups.each do |group| %>
@@ -35,14 +37,3 @@
 
 <p><%= link_to 'Plans (Pseudo-History)', :action => 'plans' %></p>
 
-<div class="rules">
-  <h3> The Beta Rules: </h3>
-  <ol>
-    <li> I will not look at the app, you must either submit patches
-      (unlikely) or describe the problem well enough that I can write
-      tests to reproduce it.</li>
-    <li> ugly is not a bug</li>
-    <li> ok. structurally ugly is a bug, but I ain't writing tests for
-      that. (rails makes it HARD)</li>
-  </ol>
-</div>

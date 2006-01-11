@@ -2,17 +2,26 @@
 <head>
   <title><%= h (params[:action] =~ /show|edit/) ? @group.name + " on " : '' %> Rubyholic.com v. <%= Group::RUBYHOLIC_VERSION %></title>
   <%= stylesheet_link_tag 'style' %>
+  <%= stylesheet_link_tag 'niftyCorners' %>
+  <%= stylesheet_link_tag 'niftyPrint', :media => "print" %>
   <%= javascript_include_tag 'prototype' %>
   <%= javascript_include_tag 'groups_manager' %>
+  <%= javascript_include_tag 'nifty' %>
+  <script type="text/javascript">
+    window.onload=function(){
+      if (!NiftyCheck()) return;
+      Rounded("div.rounded","all","#fff","#ddd","smooth");
+      Rounded("html#page","all","#890000","white","smooth");
+    }
+  </script>
 </head>
 
 <body>
 <div id="page">
 
-
   <div id="header">
-    <a href="/groups/index" style="text-decoration: none"><h1>ruby<span class="holic">holic</span></h1></a>
-    <div class="line"></div>
+    <a href="/groups/index" style="text-decoration: none"><h1><span class="ruby">ruby</span>holic</h1></a>
+    <hr>
   </div>
   
   <div class="flash">&nbsp;
