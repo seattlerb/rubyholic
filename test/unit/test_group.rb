@@ -7,8 +7,18 @@ class TestGroup < Test::Unit::TestCase
     @group = Group.find(101)
   end
 
-  def test_name_or_default
+  def test_name_or_default_good
+    @group.name = "good"
+    assert_equal "good", @group.name_or_default
+  end
+
+  def test_name_or_default_empty
     @group.name = ""
+    assert_equal "Name Missing! Please Fix", @group.name_or_default
+  end
+
+  def test_name_or_default_nil
+    @group.name = nil
     assert_equal "Name Missing! Please Fix", @group.name_or_default
   end
 

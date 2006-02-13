@@ -10,6 +10,7 @@ class Group < ActiveRecord::Base
 
   def name_or_default
     n = self.name
+    n = "" if n.nil?
     n = "Name Missing! Please Fix" if n.empty?
     n
   end
