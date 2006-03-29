@@ -22,10 +22,10 @@
 <h2 style="padding-top: 5px;">Find A Group Near You!</h2>
 
 <div class="filter">
-  <% unless params[:all] then %>
-    <%= link_to "[Show Incomplete Groups]", :action => "index", :all => true %>
+  <% unless params[:bad] then %>
+    <%= link_to "[Show Incomplete Groups]", :action => "index", :bad => true %>
   <% else %>
-    <%= link_to "[Hide Incomplete Groups]", :action => "index" %>
+    <%= link_to "[Show Complete Groups]", :action => "index" %>
   <p>
     Incomplete groups are missing contact and/or location
     information. Fix those, and the group will show up on the regular
