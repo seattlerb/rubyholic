@@ -9,14 +9,13 @@ class TestGroupsController < FunctionalTestCase
     get :index
     assert_success
 
-    assert_links_to "/groups/show/101"
-
     assert_tag :tag => 'div', :attributes => { :class => 'rounded, blurb' }
     assert_tag :tag => 'div', :attributes => { :class => 'list' }
 
+    assert_links_to "/groups/show/101"
     deny_links_to "/groups/show/102"
     deny_links_to "/groups/show/103"
-    assert_links_to "/?all=true", "[Show Incomplete Groups]"
+    assert_links_to "/?bad=true", "[Show Incomplete Groups]"
 
     x = "/groups/create"
     assert_tag :tag => 'form', :attributes => { :action => x }
@@ -25,13 +24,14 @@ class TestGroupsController < FunctionalTestCase
     assert_submit(x, "Create")
   end
 
-  def test_index_all
-    get :index, :all => "true"
+  def test_index_bad
+    get :index, :bad => "true"
     assert_success
-    assert_links_to "/groups/show/101"
+
+    deny_links_to "/groups/show/101"
     assert_links_to "/groups/show/102"
     assert_links_to "/groups/show/103"
-    assert_links_to "/", "[Hide Incomplete Groups]"
+    assert_links_to "/", "[Show Complete Groups]"
   end
 
   def test_show
