@@ -34,6 +34,8 @@ class TestGroupsController < FunctionalTestCase
   end
 
   def test_show
+    @request.host = "rubyholic.com"
+
     get :show, :id => @seattle.id
     assert_success
 
@@ -89,7 +91,7 @@ class TestGroupsController < FunctionalTestCase
                    :attributes => { :src => "/images/ical_icon.png", :width => "32", :height => "32", :alt => "Ical_icon" },
                  },
                  :attributes => {
-                   :href => 'webcal://feeds.technorati.com/events/http%3A%2F%2Ftest.host%2Fgroups%2Fshow%2F101' }}
+                   :href => 'webcal://feeds.technorati.com/events/http%3A%2F%2Frubyholic.com%2Fgroups%2Fshow%2F101' }}
 
     calendar = {
       Time.parse('2005-11-01 7:00p') =>
