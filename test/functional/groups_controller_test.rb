@@ -5,6 +5,22 @@ class TestGroupsController < FunctionalTestCase
 
   fixtures :groups, :contacts, :urls, :locations, :events, :subjects
 
+  def setup
+    super
+
+    @amazon_locotion = locations(:amazon_locotion)
+    @eric = contacts(:eric)
+    @eric_subject = subjects(:eric_subject)
+    @evan_subject = subjects(:evan_subject)
+    @monthly_event = events(:monthly_event)
+    @robotcoop_location = locations(:robotcoop_location)
+    @ryan = contacts(:ryan)
+    @seattle = groups(:seattle)
+    @seattle_irc_url = urls(:seattle_irc_url)
+    @seattle_mail_url = urls(:seattle_mail_url)
+    @seattle_web_url = urls(:seattle_web_url)
+  end
+
   def test_index
     get :index
     assert_success

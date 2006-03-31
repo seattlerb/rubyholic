@@ -29,7 +29,8 @@ class TestGroup < Test::Unit::TestCase
   end
 
   def test_add_event
-    util_new @group, :event, "Monthly Meeting", "2005-11-29 19:00", @amazon_locotion, 120
+    amazon_locotion = locations(:amazon_locotion)
+    util_new @group, :event, "Monthly Meeting", "2005-11-29 19:00", amazon_locotion, 120
   end
 
   def test_good_eh
@@ -37,11 +38,13 @@ class TestGroup < Test::Unit::TestCase
   end
 
   def test_good_eh_no_location
-    assert ! @bad_group2.good?
+    bad_group2 = groups(:bad_group2)
+    assert ! bad_group2.good?
   end
 
   def test_good_eh_no_contact
-    assert ! @bad_group1.good?
+    bad_group1 = groups(:bad_group1)
+    assert ! bad_group1.good?
   end
 
 end
