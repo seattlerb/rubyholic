@@ -93,7 +93,12 @@ class GroupsController < ApplicationController
 
   def add_event
     @group = Group.find params[:id]
-    @group.new_event params[:summary], params[:start], params[:location_id]
+
+    hours, minutes = params[:duration].split(':', 2)
+    duration = hours.to_i * 60 + minutes.to_i
+
+    @group.new_event params[:summary], params[:start], params[:location_id],
+                     duration
     @group.reload
     render :partial => 'locations_and_events'
   end

@@ -4,10 +4,12 @@ weekly_event:
   location_id: 101
   group_id: 101
   start: 2005-11-01 19:00
+  duration: 180
   summary: Weekly Meeting blah blah
 monthly_event:
   id: 102
   location_id: 102
   group_id: 101
   start: 2005-11-29 19:00
+  duration: 120
   summary: Monthly Meeting blah blah

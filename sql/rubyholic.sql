@@ -50,6 +50,7 @@ CREATE TABLE events (
     id integer NOT NULL PRIMARY KEY DEFAULT nextval('events_id_seq'::text),
     start timestamp,
     summary varchar(255),
+    duration integer,
     location_id INTEGER NOT NULL references "locations" ("id"),
     group_id INTEGER NOT NULL references "groups" ("id")
 );

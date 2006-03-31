@@ -85,7 +85,7 @@ class TestGroupsController < FunctionalTestCase
                  :tag => 'a',
                  :content => 'Add to Calendar',
                  :attributes => {
-                   :href => 'http://feeds.technorati.com/events/http%3A%2F%2Ftest.host%2Fgroups%2Fshow%2F101' }}
+                   :href => 'webcal://feeds.technorati.com/events/http%3A%2F%2Ftest.host%2Fgroups%2Fshow%2F101' }}
 
     calendar = {
       Time.parse('2005-11-01 7:00p') =>
@@ -248,11 +248,12 @@ class TestGroupsController < FunctionalTestCase
   def test_add_event
     summary = "Seattle.rb Lunch"
     start = '2005-12-01 12:00'
+    duration = '2:00'
     loc = @robotcoop_location.id
 
     orig_events = @seattle.events[0..-1]
 
-    post :add_event, :id => @seattle.id, :summary => summary, :location_id => loc, :start => start
+    post :add_event, :id => @seattle.id, :summary => summary, :location_id => loc, :start => start, :duration => duration
     assert_success
 
     @seattle.reload
@@ -264,7 +265,32 @@ class TestGroupsController < FunctionalTestCase
     assert_kind_of Event, new_event
     assert_equal summary, new_event.summary
     assert_equal @robotcoop_location, new_event.location
-    assert_equal "#{start}p", new_event.date
+    assert_equal Time.parse(start), new_event.start
+    assert_equal 120, new_event.duration
+  end
+
+  def test_add_event_bad_duration
+    summary = "Seattle.rb Lunch"
+    start = '2005-12-01 12:00'
+    duration = 'xxx'
+    loc = @robotcoop_location.id
+
+    orig_events = @seattle.events[0..-1]
+
+    post :add_event, :id => @seattle.id, :summary => summary, :location_id => loc, :start => start, :duration => duration
+    assert_success
+
+    @seattle.reload
+    new_events = @seattle.events - orig_events
+
+    assert 1, new_events.size
+    new_event = new_events.first
+    assert_not_nil new_event
+    assert_kind_of Event, new_event
+    assert_equal summary, new_event.summary
+    assert_equal @robotcoop_location, new_event.location
+    assert_equal Time.parse(start), new_event.start
+    assert_equal 0, new_event.duration
   end
 
   def test_add_subject
@@ -378,6 +404,7 @@ class TestGroupsController < FunctionalTestCase
 
     assert_ajax_form('locations_and_events', '/groups/add_event',
                      { :type => 'text', :name => 'start', :value => /^YYYY-MM-DD hh:mm$/ },
+                     { :type => 'text', :name => 'duration', :value => /^HH:MM$/ },
                      { :type => 'text', :name => 'summary', :value => /^$/ },
                      { :type => 'submit',  :value => 'Add Event' }) do |url|
       assert_tag_in_form url, :tag => 'select', :attributes => { :name => 'location_id' }
@@ -415,8 +442,13 @@ class TestGroupsController < FunctionalTestCase
       assert_tag :tag => 'li', :attributes => { :class => 'vevent' },
                  :child => {
                    :tag => 'span', :attributes => {
-                     :class => 'dtstart', :title => event.rfc2445_date },
-                   :content => event.date }
+                     :class => 'dtstart', :title => event.rfc2445_start_date },
+                   :content => event.start_date }
+      assert_tag :tag => 'li', :attributes => { :class => 'vevent' },
+                 :child => {
+                   :tag => 'span', :attributes => {
+                     :class => 'dtend', :title => event.rfc2445_end_date },
+                   :content => event.end_time}
       assert_tag :tag => 'li', :attributes => { :class => 'vevent' },
                  :child => {
                    :tag => 'span', :attributes => { :class => 'location' },

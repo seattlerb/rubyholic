@@ -36,9 +36,10 @@ class Group < ActiveRecord::Base
     _new_thing Location, :name => location, :address => address
   end
 
-  def new_event(what, wwhen, where)
+  def new_event(what, wwhen, where, length)
     where = where.id if Location === where
-    _new_thing Event, :summary => what, :start => wwhen, :location_id => where
+    _new_thing Event, :summary => what, :start => wwhen, :location_id => where,
+                      :duration => length
   end
 
   def good?

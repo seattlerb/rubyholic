@@ -29,7 +29,7 @@ class TestGroup < Test::Unit::TestCase
   end
 
   def test_add_event
-    util_new @group, :event, "Monthly Meeting", "2005-11-29 19:00", @amazon_locotion
+    util_new @group, :event, "Monthly Meeting", "2005-11-29 19:00", @amazon_locotion, 120
   end
 
   def test_good_eh
