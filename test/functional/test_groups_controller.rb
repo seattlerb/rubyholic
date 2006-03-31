@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require File.dirname(__FILE__) + '/../unit/test_contact'
 
 class TestGroupsController < FunctionalTestCase
 
@@ -80,11 +79,19 @@ class TestGroupsController < FunctionalTestCase
 
     assert_tag :tag => "h3", :content => "Schedule"
 
-    assert_tag :tag => 'div', :attributes => { :id => 'events' }
+    assert_tag :tag => 'div', :attributes => {
+                 :id => 'events', :class => 'vcalendar' },
+               :descendant => {
+                 :tag => 'a',
+                 :content => 'Add to Calendar',
+                 :attributes => {
+                   :href => 'http://feeds.technorati.com/events/http%3A%2F%2Ftest.host%2Fgroups%2Fshow%2F101' }}
 
     calendar = {
-      '2005-11-01 7:00p' => 'Robot Co-op: Weekly Meeting blah blah',
-      '2005-11-29 7:00p' => 'Amazon US1: Monthly Meeting blah blah',
+      Time.parse('2005-11-01 7:00p') =>
+        ['Robot Co-op', 'Weekly Meeting blah blah'],
+      Time.parse('2005-11-29 7:00p') =>
+        ['Amazon US1', 'Monthly Meeting blah blah'],
     }
 
     subjects = {
@@ -94,7 +101,12 @@ class TestGroupsController < FunctionalTestCase
       ]
     }
 
-#    assert_calendar calendar, subjects
+    # for testing the technorati ics converter
+    #File.open '/Users/drbrain/Desktop/foo.html', 'w' do |fp|
+    #  fp.write @response.body
+    #end
+
+    assert_calendar events(:weekly_event), events(:monthly_event)
   end
 
   def test_create
@@ -398,23 +410,26 @@ class TestGroupsController < FunctionalTestCase
     end
   end
 
-  def assert_calendar(cal, sub)
-    cal.each do |date, text|
-      if sub.has_key? date then
-        assert_tag(:tag => "li",
-                   :content => "#{date}: #{text}"
-)
- #,
-#                   :child => { :tag => "ul" })
-        sub[date].each do |description|
-          assert_tag :tag => "li", :content => description
-        end
-      else
-        assert_tag :tag => "li", :content => "#{date}: #{text}"
+  def assert_calendar(*events)
+    events.each do |event|
+      assert_tag :tag => 'li', :attributes => { :class => 'vevent' },
+                 :child => {
+                   :tag => 'span', :attributes => {
+                     :class => 'dtstart', :title => event.rfc2445_date },
+                   :content => event.date }
+      assert_tag :tag => 'li', :attributes => { :class => 'vevent' },
+                 :child => {
+                   :tag => 'span', :attributes => { :class => 'location' },
+                   :content => event.location.name }
+      assert_tag :tag => 'li', :attributes => { :class => 'vevent' },
+                 :child => {
+                   :tag => 'span', :attributes => { :class => /summary/ },
+                   :content => /#{Regexp.escape event.summary}/ }
+
+      event.subjects.each do |subject|
+        assert_tag :tag => 'li', :content => subject.description
       end
     end
-
-    assert_match /#{cal.keys.sort.join('.+')}/m, @response.body
   end
 
   def assert_ajax_form(div, url, *tests)
@@ -454,3 +469,4 @@ class TestGroupsController < FunctionalTestCase
   end
 
 end
+

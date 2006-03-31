@@ -15,6 +15,10 @@ class TestEvent < Test::Unit::TestCase
     assert_equal '2005-11-01 7:00p', @event.date
   end
 
+  def test_rfc2445_date
+    assert_equal '20051101T190000', @event.rfc2445_date
+  end
+
   def test_date_nil
     @event.start = nil # some people are difficult
     assert_equal 'bad date', @event.date

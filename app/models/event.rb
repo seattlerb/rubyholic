@@ -12,6 +12,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def rfc2445_date
+    start.strftime '%Y%m%dT%H%M%S'
+  end
+
   def new_subject description
     subject = Subject.new :description => description
     self.subjects << subject
