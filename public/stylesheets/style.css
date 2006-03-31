@@ -229,6 +229,14 @@ li {
   font-size: 16px;
 }
 
+#events p {
+  margin-left: 20px;
+}
+
+#events img {
+  vertical-align: -10px;
+} 
+
 .blurb p {
   padding-left: 10px;
   padding-right: 10px; 
