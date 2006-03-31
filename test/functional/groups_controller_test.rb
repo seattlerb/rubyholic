@@ -83,7 +83,11 @@ class TestGroupsController < FunctionalTestCase
                  :id => 'events', :class => 'vcalendar' },
                :descendant => {
                  :tag => 'a',
-                 :content => 'Add to Calendar',
+                 :content => '&nbsp;Add to Calendar',
+                 :child => {
+                   :tag => "img",
+                   :attributes => { :src => "/images/ical_icon.png", :width => "32", :height => "32", :alt => "Ical_icon" },
+                 },
                  :attributes => {
                    :href => 'webcal://feeds.technorati.com/events/http%3A%2F%2Ftest.host%2Fgroups%2Fshow%2F101' }}
 

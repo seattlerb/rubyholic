@@ -89,7 +89,7 @@ class FunctionalTestCase < Test::Unit::TestCase
     self.class.name =~ /\ATest(.*)\Z/
     return unless $1
     controller_klass = Object.path2class $1
-    @controller = controller_klass.new
+    @controller = controller_klass.new(true)
     controller_klass.send(:define_method, :rescue_action) { |e| raise e }
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new

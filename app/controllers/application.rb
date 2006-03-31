@@ -2,6 +2,11 @@
 # Likewise will all the methods added be available for all controllers.
 class ApplicationController < ActionController::Base
 
+  def initialize(testing=false)
+    super()
+    self.class.layout(nil) if testing
+  end
+
   def url_for(options, *params)
     if options.include? :model then
       model = options.delete(:model)
