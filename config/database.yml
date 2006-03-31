@@ -2,14 +2,14 @@ development:
   adapter: postgresql
   database: rubyholic_development
   host: localhost
-  username: ryan
+  username: rubyholic
   password: 
 
 test:
   adapter: postgresql
   database: rubyholic_test
   host: localhost
-  username: ryan
+  username: rubyholic
   password:
 
 production:
