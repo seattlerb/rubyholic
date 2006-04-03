@@ -12,6 +12,11 @@ class TestGroup < Test::Unit::TestCase
     assert_equal "Name Missing! Please Fix", @group.name_or_default
   end
 
+  def test_name_or_default_nil
+    @group.name = nil
+    assert_equal "Name Missing! Please Fix", @group.name_or_default
+  end
+
   def test_fixtures
     assert_kind_of Group,  @group
   end
