@@ -46,7 +46,7 @@
 	</li>
 	<% end %>
       </ul>
-      <p><a href="webcal://feeds.technorati.com/events/<%= CGI.escape url_for(:host => 'rubyholic.com', :only_path => false) %>"><%= image_tag "ical_icon.png", :size => "32x32" %>&nbsp;Add to Calendar</a></p>
+      <p><a href="webcal://feeds.technorati.com/events/<%= CGI.escape url_for(:host => 'rubyholic.com', :only_path => false) %>"><%= image_tag("ical_icon.png", :size => "32x32").sub(/\?.*?"/, '"') %>&nbsp;Add to Calendar</a></p>
     </div>
 
     <h3>Contacts</h3>
