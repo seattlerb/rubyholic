@@ -20,12 +20,20 @@ namespace :rails do
       rel = ENV['RELEASE'] || '1.1.5'
       tag = 'rel_' + rel.split(/[.-]/).join('-')
       rails_svn = "http://dev.rubyonrails.org/svn/rails/tags/#{tag}"
+
+      puts "Freezing to #{tag} using #{rails_svn}"
+      sh "type svn"
       
-      rm_rf   "vendor/rails"
-      mkdir_p "vendor/rails"
-      
+      dir = 'vendor/rails'
+      rm_rf dir
+      mkdir_p dir
       for framework in %w( railties actionpack activerecord actionmailer activesupport actionwebservice )
-        system "svn export #{rails_svn}/#{framework} vendor/rails/#{framework}"
+        checkout = "#{dir}/#{framework}"
+        sh "svn export #{rails_svn}/#{framework} #{checkout}"
+        unless test ?d, checkout then
+          puts "ERROR: checkout missing: #{checkout}"
+          exit 1
+        end
       end
     end
   end
