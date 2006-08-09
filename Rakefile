@@ -8,11 +8,16 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
+task :dirs do
+  mkdir "db" unless test ?d, "db"
+  mkdir "log" unless test ?d, "log"
+end
+
 namespace :rails do
   namespace :freeze do
-    desc "Lock to a specific rails version. Defaults to 1.1.2 or specify with RELEASE=x.y.z"
+    desc "Lock to a specific rails version. Defaults to 1.1.5 or specify with RELEASE=x.y.z"
     task :version do
-      rel = ENV['RELEASE'] || '1.1.2'
+      rel = ENV['RELEASE'] || '1.1.5'
       tag = 'rel_' + rel.split(/[.-]/).join('-')
       rails_svn = "http://dev.rubyonrails.org/svn/rails/tags/#{tag}"
       
