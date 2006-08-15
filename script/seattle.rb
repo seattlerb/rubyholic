@@ -3,7 +3,7 @@
 ENV["RAILS_ENV"] ||= 'development'
 require File.dirname(__FILE__) + '/../config/environment'
 
-if ARGV.empty? then
+if ARGV.first == "wipe" then
   Group.delete_all
 
   seattle = Group.new
@@ -24,21 +24,41 @@ seattle.new_url "irc", "irc://irc.freenode.net/#seattle.rb"
 ryan = seattle.new_contact "Ryan Davis", "ryand-ruby@zenspider.com"
 eric = seattle.new_contact "Eric Hodel", "drbrain@segment7.net"
 
-amazon = seattle.new_location "Amazon US1", "605 5th Ave, Seattle, WA 98104"
 robot  = seattle.new_location "Robot Co-op", "1205 E Pike #2F, Seattle, WA 98102"
 redline  = seattle.new_location "Red Line Cafe", "1525 E Olive Way, Seattle, WA 98122"
 
-monthly = seattle.new_event "Monthly Meeting", "2005-11-29 19:00", amazon
-monthly.new_subject "Joe Heitzeberg on Asterisk and R/AGI"
+require 'date'
+class Time
+  SEC_PER_DAY = 86400
 
-monthly = seattle.new_event "Monthly Meeting", "2005-12-27 19:00", redline
-monthly.new_subject "Eric Hodel on Hard Core TDD for Rails"
-monthly.new_subject "Evan Webb on Sydney"
+  def to_s
+    strftime "%Y-%m-%d"
+  end
 
-seattle.new_event "Weekly Hacking", "2005-11-01 19:00", robot
-seattle.new_event "Weekly Hacking", "2005-11-08 19:00", robot
-seattle.new_event "Weekly Hacking", "2005-11-15 19:00", robot
-seattle.new_event "Weekly Hacking", "2005-11-22 19:00", robot
-seattle.new_event "Weekly Hacking", "2005-12-06 19:00", redline
-seattle.new_event "Weekly Hacking", "2005-12-13 19:00", redline
-seattle.new_event "Weekly Hacking", "2005-12-20 19:00", redline
+  def midnight
+    self - (self.hour * 3600 - self.min * 60 - self.sec)
+  end
+
+  def next_week
+    self + 7 * SEC_PER_DAY
+  end
+end
+
+t = Time.now.midnight
+last = t + 60 * Time::SEC_PER_DAY
+t += Time::SEC_PER_DAY until t.wday == 2 # tuesday
+dow = "tuesday"
+
+until t > last do
+  next_week = t.next_week
+
+  if next_week.month != t.month then
+    seattle.new_event "Monthly Meeting", "#{t} 19:00", redline, 120
+  else
+    seattle.new_event "Hack Night. Everyone is welcome!", "#{t} 19:00", redline, 120
+  end
+  
+  t = next_week
+end
+
+
