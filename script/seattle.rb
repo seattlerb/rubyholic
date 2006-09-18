@@ -25,7 +25,7 @@ ryan = seattle.new_contact "Ryan Davis", "ryand-ruby@zenspider.com"
 eric = seattle.new_contact "Eric Hodel", "drbrain@segment7.net"
 
 robot  = seattle.new_location "Robot Co-op", "1205 E Pike #2F, Seattle, WA 98102"
-redline  = seattle.new_location "Red Line Cafe", "1525 E Olive Way, Seattle, WA 98122"
+vivace = seattle.new_location "Vivace Cafe", "901 East Denny Way, Seattle, WA 98122"
 
 require 'date'
 class Time
@@ -53,9 +53,9 @@ until t > last do
   next_week = t.next_week
 
   if next_week.month != t.month then
-    seattle.new_event "Monthly Meeting", "#{t} 19:00", redline, 120
+    seattle.new_event "Monthly Meeting", "#{t} 19:00", vivace, 120
   else
-    seattle.new_event "Hack Night. Everyone is welcome!", "#{t} 19:00", redline, 120
+    seattle.new_event "Hack Night. Everyone is welcome!", "#{t} 19:00", vivace, 120
   end
   
   t = next_week
