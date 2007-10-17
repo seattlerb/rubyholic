@@ -5,13 +5,16 @@ require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
-
 require 'tasks/rails'
 
 task :dirs do
   mkdir "db" unless test ?d, "db"
   mkdir "log" unless test ?d, "log"
 end
+
+$: << '../../vlad/dev/lib'
+require 'vlad'
+Vlad.load :scm => :perforce, :app => :lighttpd, :web => nil
 
 namespace :rails do
   namespace :freeze do

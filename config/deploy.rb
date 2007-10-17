@@ -1,0 +1,9 @@
+set :application,    "rubyholic"
+set :domain,         "zenspider.textdriven.com"
+set :remote_home,    "/users/home/zenspider"
+set :repository,     "//src/rubyholic/dev"
+set :deploy_to,      "#{remote_home}/domains/new.rubyholic.com"
+set :p4_cmd,         "#{remote_home}/bin/p4"
+set :lighttpd_port,  8057
+set :lighttpd_user,  "zenspider"
+set :lighttpd_group, "zenspider"
