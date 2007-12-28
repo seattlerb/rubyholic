@@ -20,7 +20,7 @@ namespace :rails do
   namespace :freeze do
     desc "Lock to a specific rails version. Defaults to 1.1.5 or specify with RELEASE=x.y.z"
     task :version do
-      rel = ENV['RELEASE'] || '1.1.5'
+      rel = ENV['RELEASE'] || '1.2.6'
       tag = 'rel_' + rel.split(/[.-]/).join('-')
       rails_svn = "http://dev.rubyonrails.org/svn/rails/tags/#{tag}"
 
