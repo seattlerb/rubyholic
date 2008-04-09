@@ -25,17 +25,4 @@ class Test::Unit::TestCase
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
-
-#   def create_fixtures(*table_names)
-#     Fixtures.create_fixtures(File.dirname(__FILE__) + "/fixtures", table_names)
-#   end
-
-  def util_new target, type, *args
-    plural = Inflector.pluralize type.to_s
-    stuff = target.send(plural)[0..-1]
-    thing = target.send("new_#{type}", *args)
-    new_stuff = target.send(plural) - stuff
-    assert_equal [thing], new_stuff
-    return thing
-  end
 end

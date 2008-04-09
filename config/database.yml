@@ -1,20 +1,18 @@
-development:
+defaults: &defaults
   adapter: postgresql
-  database: rubyholic_development
   host: localhost
   username: rubyholic
   password: 
+  
+development:
+  database: rubyholic_development
+  <<: *defaults
 
 test:
-  adapter: postgresql
   database: rubyholic_test
-  host: localhost
-  username: rubyholic
-  password:
+  <<: *defaults
 
 production:
-  adapter: postgresql
   database: rubyholic_production
-  host: localhost
   username: zenspider
-  password: 
+  <<: *defaults
