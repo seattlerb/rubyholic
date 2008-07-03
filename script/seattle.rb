@@ -49,7 +49,7 @@ last = t + 60 * Time::SEC_PER_DAY
 t += Time::SEC_PER_DAY until t.wday == 2 # tuesday
 dow = "tuesday"
 
-doomsday = Time.parse("2008-07-08")
+doomsday = Time.parse("2008-07-09")
 
 until t > last do
   location = t <= doomsday ? vivace : shinka
