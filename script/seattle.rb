@@ -24,8 +24,8 @@ seattle.new_url "irc", "irc://irc.freenode.net/#seattle.rb"
 ryan = seattle.new_contact "Ryan Davis", "ryand-ruby@zenspider.com"
 eric = seattle.new_contact "Eric Hodel", "drbrain@segment7.net"
 
-robot  = seattle.new_location "Robot Co-op", "1205 E Pike #2F, Seattle, WA 98102"
 vivace = seattle.new_location "Vivace Cafe", "901 East Denny Way, Seattle, WA 98122"
+shinka = seattle.new_location "Shinka Tea", "1703 E Olive Way, Seattle, WA 98102"
 
 require 'date'
 class Time
@@ -49,15 +49,16 @@ last = t + 60 * Time::SEC_PER_DAY
 t += Time::SEC_PER_DAY until t.wday == 2 # tuesday
 dow = "tuesday"
 
+doomsday = Time.parse("2008-07-08")
+
 until t > last do
+  location = t <= doomsday ? vivace : shinka
+
   next_week = t.next_week
 
-  if next_week.month != t.month then
-    seattle.new_event "Monthly Meeting", "#{t} 19:00", vivace, 120
-  else
-    seattle.new_event "Hack Night. Everyone is welcome!", "#{t} 19:00", vivace, 120
-  end
-  
+  seattle.new_event("Hack Night. Everyone is welcome!",
+                    "#{t} 19:00", location, 120)
+
   t = next_week
 end
 
