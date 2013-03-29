@@ -10,7 +10,7 @@ DOC
   
 + DOC
 
-** SYNOPSYS:
+** SYNOPSIS:
 
   DOC
 
